@@ -2,18 +2,22 @@
 
 **Enterprise-grade AI workflow system for ATS-optimized resume generation**
 
-An intelligent, multi-stage pipeline that uses 11 specialized AI agents to transform your background into FAANG-level, ATS-optimized resumes with automatic quality improvement and feedback loops.
+An intelligent, **dual-mode** pipeline that uses specialized AI agents to transform your background into professional resumes:
+- **JD-Aligned Mode** (11 stages): Target specific jobs with ATS optimization
+- **Standalone Mode** (9 stages): Create best general-purpose resume without job description
 
 ---
 
 ## Features
 
-- **11-Stage AI Workflow** - Orchestrated pipeline with feedback loops and quality gates
-- **ATS Optimization** - Simulates real ATS scoring (Greenhouse, Lever, Workday)
-- **Provenance Tracking** - Every resume bullet traces back to source facts
-- **Surgical Refinement** - Targeted improvements without full regeneration
-- **Truth-Bounded Scoring** - Honest assessment of maximum achievable scores
-- **Enterprise Architecture** - Modular, scalable, production-ready structure
+- **🎯 Dual-Mode Operation** - JD-aligned OR standalone resume generation
+- **🤖 Intelligent Workflow** - 9-11 AI stages with feedback loops and quality gates
+- **📊 ATS Optimization** - Simulates real ATS scoring (JD-aligned mode)
+- **💪 Strength Analysis** - Identifies competitive advantages (standalone mode)
+- **🔍 Provenance Tracking** - Every resume bullet traces back to source facts
+- **⚡ Surgical Refinement** - Targeted improvements without full regeneration
+- **✅ Truth-Bounded Scoring** - Honest assessment of maximum achievable scores
+- **🏗️ Enterprise Architecture** - Modular, scalable, production-ready structure
 
 ---
 
@@ -66,87 +70,107 @@ resume-pipeline-ai/
 
 ## Quick Start
 
-### 1. Prepare Inputs
+### Mode 1: JD-Aligned (Target Specific Job)
 
-Create two files in the `input/` directory:
-
-**`input/raw_background.txt`** - Your resume, LinkedIn profile, or career history
-
-**`input/job_description.txt`** - Target job posting
-
-### 2. Run the Pipeline
-
-```bash
-# Using the workflow command (recommended)
-/resume-pipeline
-
-# Or via Python script
-python scripts/run_pipeline.py
+**1. Prepare Inputs:**
+```
+input/
+├── job_description.txt    # Copy-paste job posting
+└── raw_background.txt     # Your resume/LinkedIn/career history
 ```
 
-### 3. Review Outputs
+**2. Run Pipeline:**
+```bash
+/resume-pipeline
+```
 
-The pipeline generates:
+**3. Output:**
+- Targeted resume optimized for the specific job
+- ATS score report (target: ≥75/100)
+- Keyword alignment analysis
+- `output/[Name]_[Company]_[Role]_2026.pdf`
+
+### Mode 2: Standalone (General-Purpose Resume)
+
+**1. Prepare Input:**
+```
+input/
+└── raw_background.txt     # Your resume/LinkedIn/career history only
+```
+
+**2. Run Pipeline:**
+```bash
+/resume-pipeline
+```
+
+**3. Output:**
+- Best possible general-purpose resume
+- Strength analysis report
+- Competitive advantages identified
+- `output/[Name]_Resume_2026.pdf`
+
+### Common Outputs
+
+Both modes generate:
 - `output/resume.pdf` - Final optimized resume
 - `output/resume.txt` - Plain text version
-- `output/PIPELINE_EXECUTION_REPORT.md` - Detailed 11+ page report
+- `output/PIPELINE_EXECUTION_REPORT.md` - Detailed execution report
 - `output/resume_metadata.json` - Provenance and statistics
 
 ---
 
 ## Pipeline Workflow Stages
 
-### Stage 1: Intake
-Extracts atomic facts with immutable provenance (fact_id) and bounded skill inference.
+### JD-Aligned Mode (11 Stages)
 
-### Stage 2: Validate Context
-Performs completeness check, detects knockout criteria mismatches, generates targeted questions.
+**Stage 1: Intake** - Extract background + job description with fact IDs
+**Stage 2: Validate Context** - Check completeness, detect knockout criteria
+**Stage 3: Analyze Alignment** - Map skills to JD requirements with semantic matching
+**Stage 4: Validate Alignment** - Calculate truth-bounded ATS ceiling
+**Stage 5: Generate Content** - Write JD-targeted resume with X-Y-Z formula
+**Stage 6: Validate Content** - Detect AI slop, validate quality
+**Stage 7: Score ATS** - Simulate real ATS scoring
+**Stage 8: ATS Gatekeeper** - Quality gate (require ≥75 score)
+**Stage 9: Format Output** - Generate ATS-friendly PDF
+**Stage 10: Validate Format** - Check page limits and formatting
+**Stage 11: Finalize** - Package with alignment report
 
-### Stage 3: Analyze Alignment
-Maps facts to requirements with semantic matching, prerequisite inference, and recency weighting.
+### Standalone Mode (9 Stages)
 
-### Stage 4: Validate Alignment
-Validates alignment matrix, calculates truth-bounded ATS ceiling, decides PASS/FAIL.
-
-### Stage 5: Generate Content
-Generates ATS-optimized bullets using X-Y-Z formula with character budget enforcement.
-
-### Stage 6: Validate Content
-Detects AI-generated slop ("delved", "seamlessly") and validates X-Y-Z formula compliance.
-
-### Stage 7: Score ATS
-Simulates real ATS scoring (keyword matching, skill density, metrics coverage, format compliance).
-
-### Stage 8: ATS Gatekeeper
-Quality gate using ATS score - triggers surgical refinement or fails with actionable feedback.
-
-### Stage 9: Format Output
-Transforms content into ATS-friendly PDF with character budget enforcement and orphan wrap prevention.
-
-### Stage 10: Validate Format
-Final format quality gate - validates character budgets, page limits, ATS compliance.
-
-### Stage 11: Finalize
-Assembles final package with provenance tracking, comprehensive report, and actionable next steps.
+**Stage 1: Intake Standalone** - Extract comprehensive background and seniority
+**Stage 2: Validate Context** - Check completeness
+**Stage 3: Analyze Strengths** - Identify competitive advantages with impact scoring
+**Stage 4: Generate Content Standalone** - Write maximum-impact resume
+**Stage 5: Validate Content** - Quality check with X-Y-Z validation
+**Stage 6: Enhance Impact** - Apply final metric amplifications
+**Stage 7: Format Output** - Generate professional PDF
+**Stage 8: Validate Format** - Check length constraints
+**Stage 9: Finalize Standalone** - Package with strength analysis report
 
 ---
 
 ## Key Innovations
 
-### 1. Immutable Provenance Tracking
+### 1. Dual-Mode Operation
+Automatically detects whether to optimize for a specific job (JD-aligned) or create the best general resume (standalone) based on input files.
+
+### 2. Strength Analysis (Standalone Mode)
+Scores every achievement on scale (1-10), complexity (1-10), and business value (1-10) to identify top accomplishments and competitive advantages.
+
+### 3. Immutable Provenance Tracking
 Every fact gets a unique `fact_id` (F001, F002...), and every resume bullet cites its source facts - preventing hallucination through source verification.
 
-### 2. Surgical Delta Patching
+### 4. Surgical Delta Patching
 Refinements modify specific `bullet_ids`, not the entire resume, avoiding LLM drift from full regeneration.
 
-### 3. Truth-Bounded Ceiling
+### 5. Truth-Bounded Ceiling (JD-Aligned Mode)
 Calculates maximum achievable ATS score based on alignment - no false hope, honest assessment.
 
-### 4. Bounded Skill Inference
-Only infers skills logically entailed by explicit skills (Kubernetes → Docker ✅, Spring Boot → Kubernetes ❌).
+### 6. Impact Maximization (Standalone Mode)
+Prioritizes achievements by impact score, recency, hot technologies, and uniqueness to create the most compelling resume.
 
-### 5. Feedback Loop Mechanisms
-ATS Gatekeeper validates score and triggers refinement - up to 3 automatic iterations with surgical changes.
+### 7. Feedback Loop Mechanisms
+Quality gates validate content and trigger refinement - up to 3 automatic iterations with surgical changes.
 
 ---
 
