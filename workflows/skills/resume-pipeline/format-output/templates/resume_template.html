@@ -6,11 +6,11 @@
   <title>{{FULL_NAME}} - Resume</title>
   <style>
     /* ==========================================
-       PRINT & PAGE SETUP (STRICT 1-PAGE ENFORCEMENT)
+       PRINT & PAGE SETUP (2-PAGE SUPPORT)
        ========================================== */
     @page {
       size: A4 portrait;
-      margin: 10mm 12mm;
+      margin: 15mm 20mm;
     }
     * {
       box-sizing: border-box;
@@ -20,10 +20,10 @@
       print-color-adjust: exact;
     }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      font-size: 9pt;
-      line-height: 1.32;
-      color: #1f2937;
+      font-family: "Calibri", "Arial", sans-serif;
+      font-size: 11pt;
+      line-height: 1.5;
+      color: #000000;
       background-color: #ffffff;
     }
     .page-container {
@@ -33,175 +33,224 @@
     }
 
     /* ==========================================
-       HEADER
+       HEADER (Risabh's Style)
        ========================================== */
     .header {
       text-align: center;
-      padding-bottom: 5px;
-      border-bottom: 1.5px solid #111827;
-      margin-bottom: 7px;
+      margin-bottom: 10px;
     }
     .header h1 {
-      font-size: 17pt;
-      font-weight: 800;
-      letter-spacing: 0.6px;
+      font-size: 16pt;
+      font-weight: 700;
       text-transform: uppercase;
-      color: #111827;
-      margin-bottom: 3px;
+      color: #000000;
+      margin-bottom: 2px;
     }
-    .contact-bar {
-      font-size: 8.5pt;
-      color: #374151;
+    .header .subtitle {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #000000;
+      margin-bottom: 6px;
     }
-    .contact-bar a {
-      color: #1d4ed8;
+    .contact-info {
+      font-size: 10pt;
+      color: #000000;
+      line-height: 1.6;
+    }
+    .contact-info a {
+      color: #0563C1;
       text-decoration: none;
     }
-    .contact-bar .sep {
-      margin: 0 5px;
-      color: #9ca3af;
+    .tech-highlights {
+      font-size: 10pt;
+      color: #000000;
+      line-height: 1.5;
+      margin-top: 6px;
+      text-align: center;
     }
 
     /* ==========================================
        SECTIONS
        ========================================== */
     .section {
-      margin-bottom: 7px;
+      margin-bottom: 12px;
     }
     .section-title {
-      font-size: 9.5pt;
+      font-size: 12pt;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #111827;
-      border-bottom: 1px solid #d1d5db;
-      padding-bottom: 1.5px;
-      margin-bottom: 4.5px;
-    }
-
-    /* ==========================================
-       SKILLS GRID
-       ========================================== */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 145px 1fr;
-      row-gap: 2px;
-      column-gap: 8px;
-      font-size: 8.6pt;
-    }
-    .skill-cat {
-      font-weight: 700;
-      color: #111827;
-    }
-    .skill-list {
-      color: #374151;
-    }
-
-    /* ==========================================
-       EXPERIENCE & ROLES
-       ========================================== */
-    .role-block {
+      color: #000000;
       margin-bottom: 6px;
-      page-break-inside: avoid;
     }
-    .role-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 9.2pt;
-    }
-    .role-title-company {
-      font-weight: 700;
-      color: #111827;
-    }
-    .role-company {
-      font-weight: 600;
-      color: #1d4ed8;
-    }
-    .role-domain {
-      font-weight: 400;
-      font-style: italic;
-      font-size: 8.4pt;
-      color: #4b5563;
-      margin-left: 4px;
-    }
-    .role-dates {
-      font-size: 8.4pt;
-      font-weight: 600;
-      color: #4b5563;
-      white-space: nowrap;
-    }
-    .bullets {
-      list-style-type: disc;
-      margin-left: 15px;
-      margin-top: 2px;
-    }
-    .bullets li {
-      font-size: 8.65pt;
-      margin-bottom: 1.5px;
-      color: #1f2937;
+
+    /* ==========================================
+       SUMMARY
+       ========================================== */
+    .summary-text {
+      font-size: 10.5pt;
+      color: #000000;
+      line-height: 1.5;
       text-align: justify;
     }
-    .bullets li strong {
-      font-weight: 600;
-      color: #111827;
+
+    /* ==========================================
+       EDUCATION
+       ========================================== */
+    .edu-block {
+      margin-bottom: 8px;
+    }
+    .edu-degree {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .edu-major {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .edu-institution {
+      font-size: 10.5pt;
+      font-style: italic;
+      color: #000000;
+    }
+    .edu-details {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #000000;
     }
 
     /* ==========================================
-       EDUCATION & ADDITIONAL INFO
+       EXPERIENCE (Risabh's Style)
        ========================================== */
-    .edu-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      font-size: 8.8pt;
+    .job-block {
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+    .job-title {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .job-company-line {
+      font-size: 10.5pt;
+      font-style: italic;
+      color: #000000;
       margin-bottom: 2px;
     }
-    .additional-text {
-      font-size: 8.6pt;
-      color: #374151;
+    .job-meta {
+      font-size: 10pt;
+      font-style: italic;
+      color: #000000;
+      margin-bottom: 4px;
+    }
+    .job-meta strong {
+      font-weight: 700;
+      font-style: normal;
+    }
+    .job-bullets {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-top: 4px;
+    }
+    .job-bullets li {
+      font-size: 10.5pt;
+      margin-bottom: 4px;
+      color: #000000;
+      line-height: 1.4;
+      text-align: justify;
+    }
+    .job-bullets li strong {
+      font-weight: 600;
+    }
+
+    /* ==========================================
+       SKILLS SECTION
+       ========================================== */
+    .skills-block {
+      margin-bottom: 8px;
+    }
+    .skill-category {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .skill-items {
+      font-size: 10.5pt;
+      color: #000000;
+      line-height: 1.5;
+    }
+
+    /* ==========================================
+       ACHIEVEMENTS
+       ========================================== */
+    .achievement-list {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    .achievement-list li {
+      font-size: 10.5pt;
+      margin-bottom: 3px;
+      color: #000000;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
   <div class="page-container">
 
-    <!-- HEADER -->
+    <!-- HEADER (Risabh's Centered Style) -->
     <header class="header">
       <h1>{{FULL_NAME}}</h1>
-      <div class="contact-bar">
-        <span>{{PHONE}}</span>
-        <span class="sep">|</span>
-        <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
-        <span class="sep">|</span>
-        <a href="{{LINKEDIN_URL}}">{{LINKEDIN}}</a>
-        <span class="sep">|</span>
-        <span>{{LOCATION}}</span>
+      <div class="subtitle">{{JOB_TITLE}}, {{YEARS_EXPERIENCE}} YOE</div>
+      <div class="contact-info">
+        Ph.: {{PHONE}}<br>
+        Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a><br>
+        LinkedIn: <a href="{{LINKEDIN_URL}}">{{LINKEDIN}}</a>
+      </div>
+      <div class="tech-highlights">
+        {{TECH_HIGHLIGHTS}}
       </div>
     </header>
 
-    <!-- TECHNICAL SKILLS -->
+    <!-- SUMMARY -->
     <section class="section">
-      <div class="section-title">Technical Skills</div>
-      <div class="skills-grid">
-        {{SKILLS_GRID}}
+      <div class="section-title">Summary</div>
+      <div class="summary-text">
+        {{SUMMARY_TEXT}}
       </div>
-    </section>
-
-    <!-- PROFESSIONAL EXPERIENCE -->
-    <section class="section">
-      <div class="section-title">Professional Experience</div>
-      {{EXPERIENCE_BLOCKS}}
     </section>
 
     <!-- EDUCATION -->
     <section class="section">
       <div class="section-title">Education</div>
-      {{EDUCATION_CONTENT}}
+      {{EDUCATION_BLOCKS}}
     </section>
 
-    <!-- ADDITIONAL INFORMATION -->
-    {{ADDITIONAL_SECTION}}
+    <!-- EXPERIENCE -->
+    <section class="section">
+      <div class="section-title">Experience</div>
+      {{EXPERIENCE_BLOCKS}}
+    </section>
+
+    <!-- SKILLS HIGHLIGHTS -->
+    <section class="section">
+      <div class="section-title">Skills Highlights</div>
+      {{SKILLS_BLOCKS}}
+    </section>
+
+    <!-- TECHNOLOGIES & COMPONENTS -->
+    <section class="section">
+      <div class="section-title">Technologies & Components</div>
+      {{TECHNOLOGIES_BLOCKS}}
+    </section>
+
+    <!-- ACHIEVEMENTS & CERTIFICATIONS -->
+    <section class="section">
+      <div class="section-title">Achievements & Certifications</div>
+      <ul class="achievement-list">
+        {{ACHIEVEMENTS_ITEMS}}
+      </ul>
+    </section>
 
   </div>
 </body>

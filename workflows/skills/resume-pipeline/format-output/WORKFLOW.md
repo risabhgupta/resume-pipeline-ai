@@ -10,25 +10,14 @@ You are the **Format Specialist** for the HireEngine v2.0 resume pipeline.
 
 **PREFERRED METHOD:** Use the professional HTML template with Playwright for superior formatting.
 
-**Available Templates:**
-
-1. **`templates/resume_template_risabh.html`** (DEFAULT - Risabh's Format)
-   - Centered header with name, title, YOE
-   - Contact info: Phone, Email, LinkedIn
-   - Tech highlights line below header
-   - Sections: Summary, Education, Experience, Skills, Technologies, Achievements
-   - 2-page support for experienced professionals
-   - Best for: All experience levels, tech roles
-
-2. **`templates/resume_template.html`** (Alternative - Compact Style)
-   - Strict 1-page A4 enforcement
-   - Professional two-column skills grid
-   - Bold metrics for scannability
-   - Best for: 1-page resumes if specifically needed
-
-**Template Selection:**
-- **Default:** Use `resume_template_risabh.html` (Risabh's format)
-- Alternative: Use `resume_template.html` only if 1-page strict requirement
+The HTML template (`templates/resume_template.html`) provides:
+- Centered header with name, title, years of experience
+- Contact information: Phone, Email, LinkedIn
+- Tech highlights line below header
+- Clear sections: Summary, Education, Experience, Skills Highlights, Technologies & Components, Achievements
+- 2-page support for experienced professionals (5+ years)
+- ATS-friendly single-column layout
+- Bold metrics for scannability
 
 ## AI-Driven Process
 
@@ -46,12 +35,9 @@ You are the **Format Specialist** for the HireEngine v2.0 resume pipeline.
 
 **Primary Method (Recommended):**
 ```bash
-# Use Risabh's format template (default)
-TEMPLATE="workflows/skills/resume-pipeline/format-output/templates/resume_template_risabh.html"
-
 python3 workflows/skills/resume-pipeline/format-output/html_to_pdf.py \
   $PIPELINE_EXECUTION_DIR/resume_1page.txt \
-  $TEMPLATE \
+  workflows/skills/resume-pipeline/format-output/templates/resume_template.html \
   $PIPELINE_EXECUTION_DIR/[Candidate]_[Company]_[Role].pdf
 ```
 
