@@ -2,7 +2,7 @@
 
 Execute the HireEngine v2.0 **dual-mode** pipeline with feedback loops and quality gates.
 
-Load and execute the orchestrator workflow from `workflows/skills/resume-pipeline/orchestrator-v2/WORKFLOW.md`
+Load and execute the orchestrator workflow from `workflows/skills/resume-pipeline/orchestrator/WORKFLOW.md`
 
 ## Dual-Mode Support
 

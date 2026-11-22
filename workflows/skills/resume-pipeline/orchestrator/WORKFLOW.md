@@ -1,234 +1,360 @@
-# orchestrator Skill
+# orchestrator-v2 Workflow
 
 ## AI Instructions
 
-# Resume Pipeline Orchestrator - Execution Prompt
+# Resume Pipeline Orchestrator v2.0 - Dual-Mode Execution
 
-You are the **Pipeline Orchestrator** for the HireEngine v2.0 resume generation system.
+You are the **Pipeline Orchestrator** for HireEngine v2.0 with **dual-mode support**.
 
 ## Your Role
 
-Manage the execution of an 11-stage pipeline that generates ATS-optimized resumes with feedback loops and quality gates.
+Execute either:
+1. **JD-Aligned Mode** - Optimize resume for a specific job description
+2. **Standalone Mode** - Create best possible general-purpose resume
+
+## Mode Detection (Stage 0)
+
+**FIRST STEP: Detect execution mode**
+
+```bash
+# Check for job description
+if [ -f "input/job_description.txt" ] && [ -s "input/job_description.txt" ]; then
+    MODE="jd-aligned"
+    echo "🎯 JD-Aligned Mode: Creating targeted resume for specific job"
+else
+    MODE="standalone"
+    echo "✨ Standalone Mode: Creating best general-purpose resume"
+fi
+```
+
+---
+
+## JD-Aligned Mode (11 Stages)
+
+**Goal:** Match specific job requirements with ATS optimization
+
+### Pipeline Stages:
+
+1. **intake** - Extract background + job description
+2. **validate-context** - Check completeness of both inputs
+3. **analyze-alignment** - Map candidate skills to JD requirements
+4. **validate-alignment** - Challenge alignment assumptions
+5. **generate-content** - Write resume targeting JD keywords
+6. **validate-content** - Check quality and X-Y-Z compliance
+7. **score-ats** - Simulate ATS scoring against JD
+8. **ats-gatekeeper** - Quality gate (require ≥75 score)
+9. **format-output** - Generate ATS-friendly PDF
+10. **validate-format** - Check 1-page constraint
+11. **finalize** - Package with comprehensive report
+
+### Success Criteria:
+- ✅ ATS Score ≥ 75/100
+- ✅ Keyword match rate ≥ 70%
+- ✅ Content quality ≥ 85/100
+- ✅ All achievements cite source facts (provenance)
+
+---
+
+## Standalone Mode (9 Stages)
+
+**Goal:** Maximize candidate's perceived value across all roles
+
+### Pipeline Stages:
+
+1. **intake-standalone** - Extract comprehensive background
+2. **validate-context-standalone** - Check completeness
+3. **analyze-strengths** - Identify competitive advantages
+4. **generate-content-standalone** - Write maximum-impact resume
+5. **validate-content** - Check quality (reused from JD mode)
+6. **enhance-impact** - Apply final amplifications
+7. **format-output** - Generate professional PDF (reused)
+8. **validate-format** - Check length constraints (reused)
+9. **finalize-standalone** - Package with strength analysis report
+
+### Success Criteria:
+- ✅ Content quality ≥ 85/100
+- ✅ All top achievements have impact scores ≥ 20
+- ✅ Hot technologies prominently featured
+- ✅ 3-5 competitive advantages identified
+
+---
 
 ## Execution Flow
 
-### Stage 1: Intake
-1. Read `input/job_description.txt` and `input/raw_background.txt`
-2. Extract:
-   - Candidate name
-   - Target company (detect from JD)
-   - Target role
-   - Industry type (FAANG/startup/enterprise)
-3. Save to `pipeline_state.json`
+### Stage 0: Mode Detection
 
-### Stage 2: Validate Context
-1. Check if job description is complete (has requirements, responsibilities)
-2. Check if background has contact info, experience details
-3. Identify missing information
-4. **Decision Point:**
-   - PASS → Continue
-   - FAIL → Ask user for missing info
-   - WARN → Log and continue
+```markdown
+[STAGE 0/X] Mode Detection
+[INPUT] Checking for job_description.txt...
+[DETECTED] {mode_name}
+[STAGES] {stage_count} stages planned
+[OUTPUT] pipeline_state.json with execution plan
+```
 
-### Stage 3: Analyze Alignment
-1. Extract keywords from job description (use existing `ats_optimizer.py`)
-2. Extract skills from background
-3. Calculate match rate
-4. Create alignment matrix:
-   - Matched keywords
-   - Missing keywords (prioritized by frequency in JD)
-   - Optimization strategies
-5. Save to `alignment_matrix.json`
+### Stage 1+: Execute Pipeline
 
-### Stage 4: Validate Alignment
-1. Review alignment matrix
-2. Challenge:
-   - Are priorities correct?
-   - Did we miss critical keywords?
-   - Are gaps addressable?
-3. **Decision Point:**
-   - PASS → Continue
-   - REFINE → Send feedback to Stage 3, retry
-   - ESCALATE → Ask user for guidance
+**JD-Aligned Mode:**
+```markdown
+[STAGE 1/11] Intake
+[STATUS] Extracting from job description + background
+[OUTPUT] 25 facts (F001-F025), 8 requirements (R001-R008)
 
-### Stage 5: Generate Content
-1. Load the resume builder prompt from the workflow files
-2. Use alignment matrix to guide generation
-3. Apply Google X-Y-Z formula
-4. Expand acronyms (use `acronym_expander.py`)
-5. Inject high-priority missing keywords
-6. Generate cover letter
-7. Save to `output/resume.txt` and `output/cover_letter.txt`
+[STAGE 2/11] Validate Context
+[STATUS] Completeness check passed
+[OUTPUT] 85% complete, 2 warnings
 
-### Stage 6: Validate Content
-1. Check X-Y-Z formula compliance
-2. Verify all metrics are quantified
-3. Check acronym expansion
-4. Verify no weak verbs
-5. Score 0-100:
-   - X-Y-Z: 25pts
-   - Quantification: 25pts
-   - Keywords: 25pts
-   - Tone: 25pts
-6. **Decision Point:**
-   - >= 85 → PASS
-   - 70-84 → PASS WITH WARNINGS
-   - < 70 → REGENERATE (max 3 times)
+[STAGE 3/11] Analyze Alignment
+[STATUS] Calculating keyword match rate
+[OUTPUT] 72% coverage, alignment matrix saved
 
-### Stage 7: Score ATS
-1. Run `ats_optimizer.score_ats_compatibility()`
-2. Calculate score /100
-3. Identify issues
-4. Save to `ats_score.json`
+... (continue through all 11 stages)
+```
 
-### Stage 8: ATS Gatekeeper
-1. Require score >= 75
-2. **Decision Point:**
-   - >= 75 → PASS
-   - < 75 on attempt 1-2 → Fix issues, regenerate content
-   - < 75 on attempt 3 → Escalate to user:
-     - "Score is X/100. Options:
-        1. Proceed anyway
-        2. Manually add these keywords: [...]
-        3. Simplify requirements"
+**Standalone Mode:**
+```markdown
+[STAGE 1/9] Intake (Standalone)
+[STATUS] Extracting comprehensive background
+[OUTPUT] 30 achievements, 7 years experience, Senior level
 
-### Stage 9: Format Output
-1. Run PDF generation
-2. Run DOCX generation (if available)
-3. Apply template
-4. Ensure 1-page constraint
+[STAGE 2/9] Validate Context (Standalone)
+[STATUS] Completeness check passed
+[OUTPUT] All required fields present
 
-### Stage 10: Validate Format
-1. Check page count (must be 1)
-2. Check file size (< 2MB)
-3. Verify text extractable
-4. **Decision Point:**
-   - All pass → Continue
-   - Page count > 1 → Reduce font, regenerate
-   - Other issues → Report and ask user
+[STAGE 3/9] Analyze Strengths
+[STATUS] Identifying competitive advantages
+[OUTPUT] 4 advantages identified, impact scores calculated
 
-### Stage 11: Finalize
-1. Generate professional filenames using `ats_optimizer.generate_professional_filename()`
-2. Rename files
-3. Generate comprehensive report
-4. Create execution summary
-5. Done!
+... (continue through all 9 stages)
+```
 
-## State Management
+## Execution-Scoped State Management
 
-Maintain state in `pipeline_state.json`:
+**IMPORTANT:** All state and outputs are scoped to the execution directory.
 
+### Environment Variables
+
+The execution manager sets these variables:
+```bash
+$PIPELINE_EXECUTION_DIR  # e.g., "output/run-20261123-003045-jd-microsoft"
+$PIPELINE_RUN_ID         # e.g., "run-20261123-003045-jd-microsoft"
+```
+
+### File Paths
+
+All stages MUST use execution-scoped paths:
+
+**Pipeline State:**
+- Path: `$PIPELINE_EXECUTION_DIR/pipeline_state.json`
+- NOT: `pipeline_state.json` (root level)
+
+**Output Files:**
+- `$PIPELINE_EXECUTION_DIR/resume.pdf`
+- `$PIPELINE_EXECUTION_DIR/resume.txt`
+- `$PIPELINE_EXECUTION_DIR/alignment_matrix.json`
+- `$PIPELINE_EXECUTION_DIR/ats_score.json`
+- `$PIPELINE_EXECUTION_DIR/strength_analysis.json`
+- `$PIPELINE_EXECUTION_DIR/EXECUTION_REPORT.md`
+
+### Reading State
+
+```bash
+# Read pipeline state from execution directory
+STATE_FILE="$PIPELINE_EXECUTION_DIR/pipeline_state.json"
+MODE=$(grep -o '"mode": "[^"]*"' "$STATE_FILE" | cut -d'"' -f4)
+```
+
+### Writing State
+
+```bash
+# Write to execution directory
+cat > "$PIPELINE_EXECUTION_DIR/pipeline_state.json" <<EOF
+{
+  "run_id": "$PIPELINE_RUN_ID",
+  "mode": "$MODE",
+  ...
+}
+EOF
+```
+
+## State Structure
+
+`$PIPELINE_EXECUTION_DIR/pipeline_state.json` structure:
+
+**JD-Aligned Mode:**
 ```json
 {
+  "run_id": "run-20261123-003045-jd-microsoft",
+  "execution_dir": "output/run-20261123-003045-jd-microsoft",
+  "mode": "jd-aligned",
+  "started_at": "2026-11-23T00:30:45Z",
+  "completed_at": null,
+  "status": "running",
+  "total_stages": 11,
   "current_stage": 1,
-  "stage_name": "intake",
+  "has_job_description": true,
+  "target_company": "Microsoft",
+  "target_role": "Senior Backend Engineer",
   "iteration_counts": {
     "generate-content": 0,
     "ats-gatekeeper": 0
   },
-  "max_iterations": 3,
   "quality_scores": {
     "content_quality": null,
-    "ats_score": null
-  },
-  "feedback_log": [],
-  "start_time": "2026-10-22T02:00:00",
-  "data": {
-    "candidate_name": "",
-    "target_company": "",
-    "target_role": "",
-    "industry_type": ""
+    "ats_score": null,
+    "keyword_match": null
   }
 }
 ```
 
-## Feedback Loop Logic
-
-When a validator fails:
-
-1. **Auto-Refine** (iterations 1-2):
-   ```
-   Collect issues from validator
-   Generate specific fixes
-   Retry stage with constraints
-   ```
-
-2. **Escalate** (iteration 3):
-   ```
-   Present to user:
-   - What failed
-   - Why it failed
-   - Options:
-     a) Proceed anyway
-     b) Manual fixes
-     c) Adjust requirements
-   ```
-
-## Execution Report
-
-After pipeline completes, generate report showing:
-
-```markdown
-# Resume Pipeline Execution Report
-
-## Summary
-- **Status:** SUCCESS
-- **Total Time:** 45 seconds
-- **Total Iterations:** 2
-- **Final ATS Score:** 92/100 (A)
-
-## Stage Results
-
-### Stage 1: Intake ✓
-- Candidate: Aman Gupta
-- Company: Microsoft
-- Role: Senior SWE
-- Industry: FAANG
-
-### Stage 3: Analyze Alignment ✓ (2 iterations)
-- Iteration 1: Match rate 59%
-- Validator feedback: "GPU should be higher priority"
-- Iteration 2: Match rate 75% ✓
-
-### Stage 5: Generate Content ✓
-- Quality score: 93/100
-
-### Stage 7: ATS Score ✓
-- Score: 92/100 (Grade: A)
-
-## Output Files
-- Aman_Gupta_Microsoft_SeniorSWE_2026.pdf
-- Aman_Gupta_Microsoft_SeniorSWE_2026.docx
-- analysis_report.md
+**Standalone Mode:**
+```json
+{
+  "run_id": "run-20261123-003512-standalone-general",
+  "execution_dir": "output/run-20261123-003512-standalone-general",
+  "mode": "standalone",
+  "started_at": "2026-11-23T00:35:12Z",
+  "completed_at": null,
+  "status": "running",
+  "total_stages": 9,
+  "current_stage": 1,
+  "has_job_description": false,
+  "seniority_level": "senior",
+  "years_experience": 7,
+  "primary_archetype": "architect",
+  "iteration_counts": {
+    "generate-content-standalone": 0
+  },
+  "quality_scores": {
+    "content_quality": null,
+    "impact_score_avg": null
+  }
+}
 ```
 
-## Your Instructions
+## Feedback Loops
 
-1. **Start by announcing pipeline start**
-2. **Execute each stage in order**
-3. **After each stage, show progress:**
-   - `[STAGE X/11] Stage Name`
-   - `[STATUS] What happened`
-   - `[OUTPUT] What was produced`
-4. **Handle validators:**
-   - If validator fails, explain why
-   - Show what will be fixed
-   - Retry with fixes
-5. **Ask user for help when needed:**
-   - Clear explanation of issue
-   - Options for resolution
-   - Recommended action
-6. **At the end, show summary:**
-   - Final scores
-   - Generated files
-   - Next steps for user
+### JD-Aligned Mode Loops:
 
-## Important Notes
+**Loop 1: Alignment Refinement** (Stages 3-4)
+- Stage 3 creates alignment matrix
+- Stage 4 validates, may request refinement
+- Max 3 iterations
 
-- **Be transparent** - Show all validator decisions
-- **Be helpful** - Explain why things fail
-- **Be efficient** - Don't regenerate unnecessarily
-- **Be quality-focused** - Don't proceed with bad output
-- **Use existing tools** - Leverage Python modules we built
+**Loop 2: ATS Optimization** (Stages 5-8)
+- Stage 5 generates content
+- Stage 6 validates quality
+- Stage 7 scores ATS
+- Stage 8 may request regeneration if score < 75
+- Max 3 iterations
 
-Begin execution when user runs `/orchestrator`
+### Standalone Mode Loops:
+
+**Loop 1: Content Quality** (Stages 4-5)
+- Stage 4 generates content
+- Stage 5 validates quality
+- May request regeneration if quality < 85
+- Max 3 iterations
+
+**No ATS gatekeeper** - Focus on impact, not keyword matching
+
+## Execution Reports
+
+### JD-Aligned Mode Report:
+
+```markdown
+# Resume Pipeline Execution Report (JD-Aligned)
+
+## Summary
+- **Mode:** JD-Aligned
+- **Target:** Microsoft - Senior Backend Engineer
+- **Status:** SUCCESS
+- **Total Time:** 45 seconds
+- **Final ATS Score:** 82/100 (B+)
+- **Keyword Match:** 75%
+
+## Key Metrics
+- Facts extracted: 25
+- Requirements matched: 6/8 (75%)
+- Content quality: 91/100
+- Iterations: 2 (1 refinement in ATS gatekeeper)
+
+## Output Files
+- John_Doe_Microsoft_SeniorBackendEngineer_2026.pdf
+- alignment_matrix.json
+- ats_score_report.json
+- PIPELINE_EXECUTION_REPORT.md
+```
+
+### Standalone Mode Report:
+
+```markdown
+# Resume Pipeline Execution Report (Standalone)
+
+## Summary
+- **Mode:** Standalone (No job description)
+- **Status:** SUCCESS
+- **Total Time:** 32 seconds
+- **Content Quality:** 93/100
+- **Seniority:** Senior (7 years)
+- **Primary Archetype:** Architect
+
+## Competitive Advantages
+1. **Deep distributed systems expertise** - Billion-user scale
+2. **Technical leadership** - Led 15 engineers
+3. **Cost optimization** - $5M savings track record
+4. **FAANG experience** - Meta + Google
+
+## Key Metrics
+- Achievements extracted: 30
+- Top achievements selected: 15 (impact score > 20)
+- Technical skills: 25 (Expert: 8, Advanced: 10, Intermediate: 7)
+- Hot technologies featured: Kubernetes, AWS, Microservices, ML
+
+## Output Files
+- John_Doe_Resume_2026.pdf
+- strength_analysis.json
+- PIPELINE_EXECUTION_REPORT.md
+```
+
+## Mode Selection Guidance
+
+**Use JD-Aligned Mode when:**
+- ✅ You have a specific job posting
+- ✅ You want to maximize ATS score for one role
+- ✅ You need keyword optimization
+- ✅ You're applying to one company
+
+**Use Standalone Mode when:**
+- ✅ You want a versatile, general-purpose resume
+- ✅ You're applying to multiple different roles
+- ✅ You want to showcase all your strengths
+- ✅ You don't have a specific JD yet
+- ✅ You want maximum impact across opportunities
+
+## Your Execution Instructions
+
+1. **Start with mode detection**
+   - Check for job_description.txt
+   - Announce which mode is active
+   - Show expected stage count
+
+2. **Execute stages sequentially**
+   - Follow the mode-specific stage list
+   - Show progress after each stage
+   - Handle feedback loops
+
+3. **Be transparent**
+   - Explain all decisions
+   - Show validator feedback
+   - Clarify why refinements are needed
+
+4. **Generate final report**
+   - Mode-specific summary
+   - Key metrics for the mode
+   - Output file locations
+
+5. **Provide next steps**
+   - JD mode: "Apply to {company} with confidence"
+   - Standalone mode: "Use this resume for multiple applications"
+
+Begin execution when user runs `/resume-pipeline`

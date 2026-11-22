@@ -55,15 +55,26 @@ resume-pipeline-ai/
 │
 ├── tests/                        # Test suites
 ├── docs/                         # Documentation
-├── input/                        # Pipeline inputs
+├── input/                        # Pipeline inputs (shared)
 │   ├── job_description.txt
 │   └── raw_background.txt
 │
-└── output/                       # Pipeline outputs
-    ├── resume.pdf
-    ├── resume.txt
-    ├── PIPELINE_EXECUTION_REPORT.md
-    └── resume_metadata.json
+└── output/                       # Execution-scoped outputs
+    ├── run-20261123-003045-jd-microsoft/     # JD-aligned run
+    │   ├── pipeline_state.json
+    │   ├── resume.pdf
+    │   ├── resume.txt
+    │   ├── alignment_matrix.json
+    │   ├── ats_score.json
+    │   └── EXECUTION_REPORT.md
+    │
+    ├── run-20261123-003512-standalone/        # Standalone run
+    │   ├── pipeline_state.json
+    │   ├── resume.pdf
+    │   ├── strength_analysis.json
+    │   └── EXECUTION_REPORT.md
+    │
+    └── latest -> run-20261123-003512-standalone/  # Symlink to latest
 ```
 
 ---
@@ -109,13 +120,39 @@ input/
 - Competitive advantages identified
 - `output/[Name]_Resume_2026.pdf`
 
-### Common Outputs
+### Execution-Scoped Outputs
 
-Both modes generate:
-- `output/resume.pdf` - Final optimized resume
-- `output/resume.txt` - Plain text version
-- `output/PIPELINE_EXECUTION_REPORT.md` - Detailed execution report
-- `output/resume_metadata.json` - Provenance and statistics
+**Each run creates its own isolated directory:**
+
+```
+output/run-{TIMESTAMP}-{MODE}-{TARGET}/
+├── pipeline_state.json           # Execution state
+├── resume.pdf                     # Final resume
+├── resume.txt                     # Plain text version
+├── EXECUTION_REPORT.md            # Detailed report
+└── [mode-specific files]          # alignment_matrix.json, strength_analysis.json, etc.
+```
+
+**Benefits:**
+- ✅ Run multiple jobs simultaneously
+- ✅ Keep history of all executions
+- ✅ Easy comparison of different versions
+- ✅ Clean isolated state per run
+- ✅ Symlink `output/latest/` points to most recent
+
+**Example:**
+```bash
+# First run (Microsoft)
+/resume-pipeline
+# Creates: output/run-20261123-120000-jd-microsoft/
+
+# Second run (Google) - doesn't interfere!
+/resume-pipeline
+# Creates: output/run-20261123-120530-jd-google/
+
+# Access latest
+ls output/latest/resume.pdf
+```
 
 ---
 

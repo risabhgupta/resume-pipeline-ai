@@ -424,12 +424,14 @@
     "/Users/risabh/RisabhResume.docx"
   ],
   "stage_name": "finalize-standalone",
+  "finalized_at": "2026-11-23T00:47:30+07:00",
   "outputs": [
     "output/Risabh_Gupta_Resume_2026.pdf",
     "output/Risabh_Gupta_Resume_2026.docx",
     "output/Risabh_Gupta_Resume_2026.html",
     "output/Risabh_Gupta_Resume_2026.txt",
     "output/strength_analysis.json",
-    "output/EXECUTION_REPORT.md"
+    "output/EXECUTION_REPORT.md",
+    "output/resume_metadata.json"
   ]
 }
