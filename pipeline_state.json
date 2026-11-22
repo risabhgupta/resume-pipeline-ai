@@ -1,0 +1,185 @@
+{
+  "current_stage": 11,
+  "stage_name": "finalize",
+  "iteration_counts": {
+    "generate-content": 0,
+    "ats-gatekeeper": 1,
+    "analyze-alignment": 1
+  },
+  "max_iterations": 3,
+  "quality_scores": {
+    "content_quality": 95,
+    "ats_score": 94
+  },
+  "feedback_log": [
+    {
+      "from_stage": "validate-alignment",
+      "to_stage": "analyze-alignment",
+      "timestamp": "2026-11-01T02:35:00Z",
+      "feedback_type": "CORRECTION",
+      "issues": [
+        "Hive marked as gap but exists in background (Apache Hive mentioned in line 174)",
+        "Flink marked as gap but exists in background (Apache Flink mentioned in lines 101, 174)",
+        "Petabyte-scale strategy overstates daily processing (TB/day \u2260 petabyte daily throughput)"
+      ],
+      "corrections_applied": [
+        "Moved Hive and Flink from gaps to matched keywords",
+        "Adjusted initial match rate from 64.5% to 68.5%",
+        "Reframed petabyte-scale as 'multi-petabyte platform' (cumulative)",
+        "Reduced optimized match rate from 81.5% to 78% (realistic)",
+        "Updated gap breakdown: high-priority from 9 to 6"
+      ]
+    }
+  ],
+  "start_time": "2026-11-01T02:33:00",
+  "data": {
+    "candidate_name": "Aman Gupta",
+    "target_company": "Uber",
+    "target_role": "Sr Staff Engineer - Data Engineer",
+    "industry_type": "FAANG",
+    "job_location": "Bengaluru, India",
+    "experience_years": "10-15+",
+    "key_focuses": [
+      "Data Lake/Lakehouse Architecture",
+      "Data Modeling & Schema Design",
+      "Distributed Data Processing (Spark, Hive, Presto, Kafka/Flink)",
+      "Data Governance & Quality",
+      "Technical Leadership & Strategy",
+      "Petabyte-scale Pipeline Engineering"
+    ],
+    "alignment": {
+      "initial_match_rate": 68.5,
+      "optimized_match_rate": 78.0,
+      "improvement_potential": 9.5,
+      "high_priority_gaps": 6,
+      "addressable_gaps": 6,
+      "strategies_count": 6
+    },
+    "alignment_validation": {
+      "decision": "APPROVED_WITH_CORRECTIONS",
+      "challenges_raised": 3,
+      "corrections_applied": 5,
+      "strategies_approved": 6,
+      "strategies_rejected": 0,
+      "confidence_score": 90
+    },
+    "content_generated": {
+      "resume_word_count": 940,
+      "resume_bullets": 23,
+      "cover_letter_word_count": 321,
+      "acronyms_expanded": 18,
+      "keywords_injected": 7,
+      "high_priority_keywords_present": [
+        "Presto",
+        "medallion architecture",
+        "Polaris",
+        "schema registry",
+        "cost optimization",
+        "multi-year strategy",
+        "multi-petabyte"
+      ]
+    },
+    "content_validation": {
+      "overall_score": 95,
+      "grade": "A",
+      "decision": "PASS",
+      "breakdown": {
+        "xyz_compliance": 24,
+        "quantification": 24,
+        "keyword_density": 22,
+        "professional_tone": 25
+      },
+      "bullets_analyzed": 23,
+      "bullets_passed": 23,
+      "bullets_with_metrics": 22,
+      "keywords_found": 13,
+      "keywords_missing": [
+        "data modeling",
+        "schema design"
+      ],
+      "weak_verbs_found": 0,
+      "issues": [
+        "1 bullet missing explicit quantification",
+        "Missing critical keywords: 'data modeling' (8x in JD), 'schema design' (5x in JD)"
+      ],
+      "notes": "High quality content. Minor keyword gaps do not affect overall pass decision."
+    },
+    "ats_analysis": {
+      "score": 86,
+      "grade": "B+",
+      "status": "PASS",
+      "keyword_match_rate": 78.0,
+      "quick_fixes_available": true,
+      "potential_score_with_fixes": 94,
+      "estimated_improvement": 8
+    },
+    "ats_gatekeeper": {
+      "decision": "PASS",
+      "initial_score": 86,
+      "final_score": 94,
+      "threshold": 75,
+      "fixes_applied": [
+        "Changed 'TECHNICAL SKILLS' \u2192 'SKILLS' (+2 pts)",
+        "Changed 'PROFESSIONAL SUMMARY' \u2192 'SUMMARY' (+2 pts)",
+        "Added 'data modeling, schema design' to summary (+3 pts)",
+        "Changed 'ADDITIONAL INFORMATION' \u2192 'SABBATICAL' (+1 pt)"
+      ],
+      "improvement": 8,
+      "keyword_match_rate_improvement": "78% \u2192 81%"
+    },
+    "format_output": {
+      "pdf_generated": true,
+      "docx_generated": true,
+      "html_generated": true,
+      "pdf_size_kb": 292,
+      "files_created": [
+        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.pdf",
+        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.docx",
+        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.html"
+      ]
+    },
+    "format_validation": {
+      "decision": "PASS_WITH_NOTE",
+      "checks": {
+        "file_existence": {
+          "status": "PASS",
+          "details": "All 3 files generated (PDF, DOCX, HTML)"
+        },
+        "file_size": {
+          "status": "PASS",
+          "resume_pdf_kb": 292,
+          "resume_docx_kb": 13,
+          "details": "Within acceptable range (3KB - 2MB)"
+        },
+        "page_count": {
+          "status": "ACCEPTABLE",
+          "pages": 2,
+          "details": "2 pages is acceptable for 10+ years experience and Sr Staff level role",
+          "note": "Many hiring managers expect 2 pages for senior/staff positions"
+        },
+        "content_completeness": {
+          "status": "PASS",
+          "source_bullets": 23,
+          "verification": "All content present in PDF"
+        }
+      },
+      "notes": [
+        "For 10+ years experience: 1 page preferred, 2 pages acceptable",
+        "Sr Staff Engineer level typically uses 2-page resumes",
+        "Content is comprehensive and well-structured"
+      ]
+    },
+    "finalization": {
+      "execution_report_generated": true,
+      "final_status": "SUCCESS",
+      "deliverables": [
+        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.pdf",
+        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.docx",
+        "cover_letter.txt",
+        "EXECUTION_REPORT.md"
+      ]
+    }
+  },
+  "status": "COMPLETE",
+  "end_time": "2026-11-01T02:50:00"
+}

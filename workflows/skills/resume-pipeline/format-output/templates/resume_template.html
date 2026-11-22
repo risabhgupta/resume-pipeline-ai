@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{FULL_NAME}} - Resume</title>
+  <style>
+    /* ==========================================
+       PRINT & PAGE SETUP (STRICT 1-PAGE ENFORCEMENT)
+       ========================================== */
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 9pt;
+      line-height: 1.32;
+      color: #1f2937;
+      background-color: #ffffff;
+    }
+    .page-container {
+      width: 100%;
+      max-width: 210mm;
+      margin: 0 auto;
+    }
+
+    /* ==========================================
+       HEADER
+       ========================================== */
+    .header {
+      text-align: center;
+      padding-bottom: 5px;
+      border-bottom: 1.5px solid #111827;
+      margin-bottom: 7px;
+    }
+    .header h1 {
+      font-size: 17pt;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: #111827;
+      margin-bottom: 3px;
+    }
+    .contact-bar {
+      font-size: 8.5pt;
+      color: #374151;
+    }
+    .contact-bar a {
+      color: #1d4ed8;
+      text-decoration: none;
+    }
+    .contact-bar .sep {
+      margin: 0 5px;
+      color: #9ca3af;
+    }
+
+    /* ==========================================
+       SECTIONS
+       ========================================== */
+    .section {
+      margin-bottom: 7px;
+    }
+    .section-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #111827;
+      border-bottom: 1px solid #d1d5db;
+      padding-bottom: 1.5px;
+      margin-bottom: 4.5px;
+    }
+
+    /* ==========================================
+       SKILLS GRID
+       ========================================== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      row-gap: 2px;
+      column-gap: 8px;
+      font-size: 8.6pt;
+    }
+    .skill-cat {
+      font-weight: 700;
+      color: #111827;
+    }
+    .skill-list {
+      color: #374151;
+    }
+
+    /* ==========================================
+       EXPERIENCE & ROLES
+       ========================================== */
+    .role-block {
+      margin-bottom: 6px;
+      page-break-inside: avoid;
+    }
+    .role-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 9.2pt;
+    }
+    .role-title-company {
+      font-weight: 700;
+      color: #111827;
+    }
+    .role-company {
+      font-weight: 600;
+      color: #1d4ed8;
+    }
+    .role-domain {
+      font-weight: 400;
+      font-style: italic;
+      font-size: 8.4pt;
+      color: #4b5563;
+      margin-left: 4px;
+    }
+    .role-dates {
+      font-size: 8.4pt;
+      font-weight: 600;
+      color: #4b5563;
+      white-space: nowrap;
+    }
+    .bullets {
+      list-style-type: disc;
+      margin-left: 15px;
+      margin-top: 2px;
+    }
+    .bullets li {
+      font-size: 8.65pt;
+      margin-bottom: 1.5px;
+      color: #1f2937;
+      text-align: justify;
+    }
+    .bullets li strong {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    /* ==========================================
+       EDUCATION & ADDITIONAL INFO
+       ========================================== */
+    .edu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 8.8pt;
+      margin-bottom: 2px;
+    }
+    .additional-text {
+      font-size: 8.6pt;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <!-- HEADER -->
+    <header class="header">
+      <h1>{{FULL_NAME}}</h1>
+      <div class="contact-bar">
+        <span>{{PHONE}}</span>
+        <span class="sep">|</span>
+        <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        <span class="sep">|</span>
+        <a href="{{LINKEDIN_URL}}">{{LINKEDIN}}</a>
+        <span class="sep">|</span>
+        <span>{{LOCATION}}</span>
+      </div>
+    </header>
+
+    <!-- TECHNICAL SKILLS -->
+    <section class="section">
+      <div class="section-title">Technical Skills</div>
+      <div class="skills-grid">
+        {{SKILLS_GRID}}
+      </div>
+    </section>
+
+    <!-- PROFESSIONAL EXPERIENCE -->
+    <section class="section">
+      <div class="section-title">Professional Experience</div>
+      {{EXPERIENCE_BLOCKS}}
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section">
+      <div class="section-title">Education</div>
+      {{EDUCATION_CONTENT}}
+    </section>
+
+    <!-- ADDITIONAL INFORMATION -->
+    {{ADDITIONAL_SECTION}}
+
+  </div>
+</body>
+</html>
