@@ -10,12 +10,26 @@ You are the **Format Specialist** for the HireEngine v2.0 resume pipeline.
 
 **PREFERRED METHOD:** Use the professional HTML template with Playwright for superior formatting.
 
-The HTML template (`templates/resume_template.html`) provides:
-- Strict 1-page A4 enforcement via print-media CSS
-- Professional two-column skills grid
-- Bold metrics for scannability
-- Clean semantic structure
-- ATS-friendly single-column layout
+**Available Templates:**
+
+1. **`templates/resume_template.html`** (Original - Compact Style)
+   - Strict 1-page A4 enforcement via print-media CSS
+   - Professional two-column skills grid
+   - Bold metrics for scannability
+   - Clean semantic structure
+   - Best for: 1-page resumes, modern tech roles
+
+2. **`templates/resume_template_v2.html`** (Moheel Format - Professional Style)
+   - Follows traditional CV format with clear sections
+   - 2-page support for experienced professionals
+   - Section headers: PROFESSIONAL SUMMARY, AREAS OF EXPERTISE, etc.
+   - 4-column expertise grid
+   - Signature line at bottom
+   - Best for: 2-page resumes, senior/staff roles, traditional industries
+
+**Template Selection:**
+- Use `resume_template_v2.html` for 5+ years experience (follows Moheel's format)
+- Use `resume_template.html` for 0-5 years experience (compact format)
 
 ## AI-Driven Process
 
@@ -33,9 +47,17 @@ The HTML template (`templates/resume_template.html`) provides:
 
 **Primary Method (Recommended):**
 ```bash
+# Select template based on experience level
+YEARS_EXP=$(jq -r '.years_of_experience' $PIPELINE_EXECUTION_DIR/pipeline_state.json)
+if [ "$YEARS_EXP" -ge 5 ]; then
+  TEMPLATE="workflows/skills/resume-pipeline/format-output/templates/resume_template_v2.html"
+else
+  TEMPLATE="workflows/skills/resume-pipeline/format-output/templates/resume_template.html"
+fi
+
 python3 workflows/skills/resume-pipeline/format-output/html_to_pdf.py \
   $PIPELINE_EXECUTION_DIR/resume_1page.txt \
-  workflows/skills/resume-pipeline/format-output/templates/resume_template.html \
+  $TEMPLATE \
   $PIPELINE_EXECUTION_DIR/[Candidate]_[Company]_[Role].pdf
 ```
 

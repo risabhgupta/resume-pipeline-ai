@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{FULL_NAME}} - Resume</title>
+  <style>
+    /* ==========================================
+       PRINT & PAGE SETUP (2-PAGE SUPPORT)
+       ========================================== */
+    @page {
+      size: A4 portrait;
+      margin: 15mm 18mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      font-family: "Calibri", "Arial", "Helvetica Neue", sans-serif;
+      font-size: 11pt;
+      line-height: 1.4;
+      color: #000000;
+      background-color: #ffffff;
+    }
+    .page-container {
+      width: 100%;
+      max-width: 210mm;
+      margin: 0 auto;
+    }
+
+    /* ==========================================
+       HEADER (Following Moheel's Format)
+       ========================================== */
+    .header {
+      text-align: left;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #000000;
+      margin-bottom: 10px;
+    }
+    .header h1 {
+      font-size: 18pt;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #000000;
+      margin-bottom: 4px;
+    }
+    .contact-line {
+      font-size: 10pt;
+      color: #000000;
+      line-height: 1.5;
+    }
+    .contact-line a {
+      color: #0563C1;
+      text-decoration: none;
+    }
+    .sep {
+      margin: 0 6px;
+      color: #000000;
+    }
+    .total-exp {
+      font-size: 10pt;
+      color: #000000;
+      margin-top: 2px;
+    }
+
+    /* ==========================================
+       SECTIONS (Moheel's Section Style)
+       ========================================== */
+    .section {
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 12pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #000000;
+      margin-bottom: 8px;
+    }
+    .section-content {
+      font-size: 10.5pt;
+      color: #000000;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    /* ==========================================
+       PROFESSIONAL SUMMARY
+       ========================================== */
+    .summary-text {
+      font-size: 10.5pt;
+      color: #000000;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    /* ==========================================
+       AREAS OF EXPERTISE (4-Column Grid like Moheel)
+       ========================================== */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px 12px;
+      font-size: 10pt;
+    }
+    .expertise-item {
+      color: #000000;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    /* ==========================================
+       PROFESSIONAL EXPERIENCE (Moheel's Style)
+       ========================================== */
+    .job-block {
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .company-role {
+      flex: 1;
+    }
+    .company-name {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .role-title {
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: #000000;
+      font-style: italic;
+    }
+    .job-dates {
+      font-size: 10pt;
+      font-weight: 600;
+      color: #000000;
+      white-space: nowrap;
+      margin-left: 20px;
+    }
+    .projects-line {
+      font-size: 10pt;
+      color: #000000;
+      margin-bottom: 4px;
+    }
+    .projects-line strong {
+      font-weight: 700;
+    }
+    .job-bullets {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-top: 4px;
+    }
+    .job-bullets li {
+      font-size: 10pt;
+      margin-bottom: 4px;
+      color: #000000;
+      line-height: 1.4;
+    }
+    .job-bullets li strong {
+      font-weight: 600;
+    }
+
+    /* ==========================================
+       EDUCATION (Simple Format)
+       ========================================== */
+    .edu-item {
+      margin-bottom: 3px;
+      font-size: 10pt;
+      color: #000000;
+    }
+    .edu-bullet {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+
+    /* ==========================================
+       ACHIEVEMENTS & PERSONAL SKILLS
+       ========================================== */
+    .achievement-list {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    .achievement-list li {
+      font-size: 10pt;
+      margin-bottom: 3px;
+      color: #000000;
+      line-height: 1.4;
+    }
+
+    /* ==========================================
+       LANGUAGES & INTERESTS (Side by Side)
+       ========================================== */
+    .two-column-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+    .column-content {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    .column-content li {
+      font-size: 10pt;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+
+    /* ==========================================
+       SIGNATURE
+       ========================================== */
+    .signature {
+      text-align: right;
+      font-size: 11pt;
+      font-weight: 600;
+      color: #000000;
+      margin-top: 20px;
+    }
+    .signature-line {
+      font-style: italic;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <!-- HEADER (Following Moheel's Format) -->
+    <header class="header">
+      <h1>{{FULL_NAME}}</h1>
+      <div class="contact-line">
+        <span>{{PHONE}}</span>
+        <span class="sep">|</span>
+        <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        <span class="sep">|</span>
+        <span>{{LOCATION}}</span>
+        <span class="sep">|</span>
+      </div>
+      <div class="total-exp">
+        Total Exp: {{YEARS_EXPERIENCE}} Years | Linked In: <a href="{{LINKEDIN_URL}}">{{LINKEDIN}}</a>
+      </div>
+    </header>
+
+    <!-- PROFILE OVERVIEW (Optional) -->
+    {{PROFILE_OVERVIEW}}
+
+    <!-- PROFESSIONAL SUMMARY -->
+    <section class="section">
+      <div class="section-title">PROFESSIONAL SUMMARY :</div>
+      <div class="summary-text">
+        {{PROFESSIONAL_SUMMARY}}
+      </div>
+    </section>
+
+    <!-- AREAS OF EXPERTISE (4-Column Grid) -->
+    <section class="section">
+      <div class="section-title">AREAS OF EXPERTISE :</div>
+      <div class="expertise-grid">
+        {{EXPERTISE_ITEMS}}
+      </div>
+    </section>
+
+    <!-- PROFESSIONAL EXPERIENCE -->
+    <section class="section">
+      <div class="section-title">PROFESSIONAL EXPERIENCE :</div>
+      {{EXPERIENCE_BLOCKS}}
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section">
+      <div class="section-title">EDUCATION :</div>
+      {{EDUCATION_ITEMS}}
+    </section>
+
+    <!-- ACHIEVEMENTS & PERSONAL SKILLS -->
+    <section class="section">
+      <div class="section-title">ACHIEVEMENTS & PERSONAL SKILLS :</div>
+      <ul class="achievement-list">
+        {{ACHIEVEMENTS_ITEMS}}
+      </ul>
+    </section>
+
+    <!-- LANGUAGES & INTERESTS (Two Columns) -->
+    <div class="two-column-section">
+      <div>
+        <div class="section-title">LANGUAGES :</div>
+        <ul class="column-content">
+          {{LANGUAGES_ITEMS}}
+        </ul>
+      </div>
+      <div>
+        <div class="section-title">INTERESTS :</div>
+        <ul class="column-content">
+          {{INTERESTS_ITEMS}}
+        </ul>
+      </div>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="signature">
+      <div class="signature-line">Sincerely,</div>
+      <div>{{FULL_NAME}}</div>
+    </div>
+
+  </div>
+</body>
+</html>
