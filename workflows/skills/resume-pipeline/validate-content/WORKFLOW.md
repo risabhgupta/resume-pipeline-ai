@@ -12,10 +12,9 @@ Rigorously evaluate resume content quality and enforce the 85/100 quality thresh
 
 ## Inputs
 
-- `output/resume.txt` - Generated resume to validate
-- `output/cover_letter.txt` - Generated cover letter to validate
-- `output/alignment_matrix.json` - Target keywords
-- `pipeline_state.json` - Context
+- `$PIPELINE_EXECUTION_DIR/resume.txt` - Generated resume to validate
+- `$PIPELINE_EXECUTION_DIR/cover_letter.txt` - Generated cover letter to validate (optional)
+- `$PIPELINE_EXECUTION_DIR/pipeline_state.json` - Context and candidate data
 
 ## Scoring Rubric (100 points total)
 
@@ -57,22 +56,29 @@ Every achievement must have numbers.
 - 10 pts: 70%+ have metrics
 - 0 pts: < 70% quantified
 
-### Component 3: Keyword Density (25 points)
+### Component 3: Technical Keyword Coverage (25 points)
 
-Verify high-priority keywords from alignment matrix are present.
+Verify essential technical keywords are present for the candidate's seniority level.
+
+**Required Keywords by Role:**
+- **Backend Engineer:** System design, API design, Database optimization, Caching, Microservices
+- **Data Engineer:** Data pipeline, ETL, Data modeling, Spark/Hadoop, SQL optimization
+- **DevOps Engineer:** CI/CD, Docker, Kubernetes, Infrastructure as Code, Monitoring
+- **Full Stack:** Frontend frameworks, Backend APIs, Database design, Deployment
 
 **Check:**
-- Top 10 high-priority JD keywords → All present?
-- Keywords used naturally (not keyword stuffing)?
-- Acronyms expanded on first occurrence?
-- Technical depth appropriate for role level?
+- Core technical keywords for role (10+ keywords minimum)
+- Keywords used naturally (not keyword stuffing - max 3% density per keyword)
+- Acronyms expanded on first occurrence
+- Cloud services specific (AWS: EC2, S3, RDS not just "AWS")
+- Monitoring/observability tools named (CloudWatch, Grafana, etc.)
 
 **Scoring:**
-- 25 pts: All top 10 keywords present + natural usage
-- 20 pts: 8-9 keywords present
-- 15 pts: 6-7 keywords present
-- 10 pts: 4-5 keywords present
-- 0 pts: < 4 keywords
+- 25 pts: 15+ relevant keywords, all used naturally
+- 20 pts: 12-14 keywords present
+- 15 pts: 9-11 keywords present
+- 10 pts: 6-8 keywords present
+- 0 pts: < 6 keywords or keyword stuffing detected
 
 ### Component 4: Professional Tone (25 points)
 
@@ -102,10 +108,10 @@ Assess writing quality and professionalism.
 
 ```bash
 # Re-read file independently
-test -f output/resume.txt || exit 1
+test -f $PIPELINE_EXECUTION_DIR/resume.txt || exit 1
 
 # Count bullets independently
-bullet_count=$(grep -c "^•\|^-" output/resume.txt)
+bullet_count=$(grep -c "^•\|^-" $PIPELINE_EXECUTION_DIR/resume.txt)
 echo "Total bullets found: $bullet_count"
 
 # Must have 15-25 bullets for typical resume
@@ -115,7 +121,7 @@ if [ $bullet_count -lt 15 ]; then
 fi
 
 # Extract all bullets to temp file for analysis
-grep "^•\|^-" output/resume.txt > /tmp/bullets_to_validate.txt
+grep "^•\|^-" $PIPELINE_EXECUTION_DIR/resume.txt > /tmp/bullets_to_validate.txt
 ```
 
 ### 1. X-Y-Z Formula Check - Verify Each Bullet Independently
@@ -163,15 +169,26 @@ done < /tmp/bullets_to_validate.txt
 
 ### 2. Keyword Presence Check - Independent Verification
 
-**Do NOT trust alignment matrix claims. Verify independently.**
+**Extract keywords from candidate's actual experience and verify they're in resume.**
 
 ```bash
-# Extract top 10 keywords from alignment matrix
-top_keywords=$(jq -r '.jd_keywords.top_keywords[0:10] | .[].term' output/alignment_matrix.json)
+# Extract seniority level and primary technologies from pipeline_state.json
+seniority=$(jq -r '.seniority_level' $PIPELINE_EXECUTION_DIR/pipeline_state.json)
+primary_skills=$(jq -r '.technical_skills.expert[]' $PIPELINE_EXECUTION_DIR/pipeline_state.json)
 
-# For EACH keyword, independently verify presence in resume
-for keyword in $top_keywords; do
-  count=$(grep -ic "$keyword" output/resume.txt)
+# Define essential keywords based on seniority
+if [ "$seniority" = "senior" ] || [ "$seniority" = "staff" ]; then
+  required_keywords=("system design" "architecture" "scalability" "performance" "mentoring")
+elif [ "$seniority" = "mid" ]; then
+  required_keywords=("design" "optimization" "testing" "debugging")
+else
+  required_keywords=("implementation" "testing" "debugging")
+fi
+
+# For EACH required keyword, independently verify presence in resume
+missing=0
+for keyword in "${required_keywords[@]}"; do
+  count=$(grep -ic "$keyword" $PIPELINE_EXECUTION_DIR/resume.txt)
   if [ $count -eq 0 ]; then
     echo "MISSING KEYWORD: $keyword"
     missing=$((missing + 1))
@@ -181,22 +198,22 @@ for keyword in $top_keywords; do
 done
 
 # Calculate score
-# If > 2 keywords missing from top 10 → Score penalty
+# If > 2 keywords missing from required set → Score penalty
 ```
 
 ```json
 {
   "keyword_check": [
+    {"keyword": "System design", "present": true, "count": 3, "verified": "grep"},
     {"keyword": "Kubernetes", "present": true, "count": 5, "verified": "grep"},
-    {"keyword": "AKS", "present": true, "count": 2, "verified": "grep"},
-    {"keyword": "GPU", "present": false, "count": 0, "verified": "grep"}
+    {"keyword": "Performance optimization", "present": true, "count": 2, "verified": "grep"}
   ],
   "independent_verification": true,
   "verification_method": "grep on actual resume.txt file"
 }
 ```
 
-**Fail Fast:** If > 3 of top 10 keywords missing → Keyword Density = 0
+**Fail Fast:** If > 3 required keywords missing → Keyword Coverage = 0
 
 ### 3. Acronym Expansion Check
 
@@ -204,6 +221,46 @@ Verify first occurrence is expanded:
 - ✅ "Amazon Web Services (AWS)"
 - ✅ "Kubernetes (K8s)"
 - ❌ "AWS" (first occurrence not expanded)
+
+### 3.5. Keyword Density Check - ATS CRITICAL
+
+**Research Finding:** Keyword density >3% per 100 words triggers ATS filtering and penalties.
+
+**AI performs density calculation:**
+
+```bash
+# Get total word count
+total_words=$(wc -w < $PIPELINE_EXECUTION_DIR/resume.txt)
+
+# Count top 5 technical keywords
+keywords=("AWS" "Kubernetes" "Python" "Node.js" "Docker")
+
+for keyword in "${keywords[@]}"; do
+  count=$(grep -io "$keyword" $PIPELINE_EXECUTION_DIR/resume.txt | wc -l)
+  density=$(echo "scale=2; ($count / $total_words) * 100" | bc)
+
+  echo "Keyword: $keyword"
+  echo "  Count: $count"
+  echo "  Density: $density%"
+
+  # Flag if density > 3%
+  if (( $(echo "$density > 3.0" | bc -l) )); then
+    echo "  ⚠️  WARNING: Keyword stuffing detected! Density $density% > 3% threshold"
+    echo "  Action: Remove $((count - (total_words * 3 / 100))) occurrences"
+  fi
+done
+```
+
+**Keyword Density Decision:**
+- **< 1%**: Keyword underutilized - add more natural mentions
+- **1-3%**: Optimal range - natural usage
+- **> 3%**: Keyword stuffing - **FAIL**, triggers ATS penalties
+- **> 5%**: Critical stuffing - resume likely auto-rejected
+
+**If ANY keyword > 3% density:**
+- Deduct 10 points from Keyword Density component
+- Send feedback to regenerate with reduced keyword frequency
+- Never proceed with keyword stuffing
 
 ### 4. Forbidden Patterns Check - Independent Scan
 
@@ -213,14 +270,14 @@ Verify first occurrence is expanded:
 # Check for weak verbs independently
 weak_verbs="worked on|helped|assisted|participated|involved|responsible for"
 
-if grep -iE "$weak_verbs" output/resume.txt; then
+if grep -iE "$weak_verbs" $PIPELINE_EXECUTION_DIR/resume.txt; then
   echo "CRITICAL FAILURE: Weak verbs detected"
   echo "Professional Tone Score = 0"
   exit 1
 fi
 
 # Check for passive voice
-if grep -iE "was |were |been " output/resume.txt | head -5; then
+if grep -iE "was |were |been " $PIPELINE_EXECUTION_DIR/resume.txt | head -5; then
   echo "WARNING: Possible passive voice detected"
 fi
 ```
