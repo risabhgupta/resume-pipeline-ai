@@ -61,22 +61,46 @@ ls -lh output/resume.pdf | awk '{print $5}'
 # 3 KB - 2 MB: OK
 ```
 
-### Check 3: Page Count (CRITICAL)
+### Check 3: Page Count (CRITICAL - Experience-Based)
 
-**Must be exactly 1 page for resume.**
+**Page count target depends on candidate experience:**
 
 **AI validates using available tools:**
 
 ```bash
-# MANDATORY: Verify page count independently
-page_count=$(pdfinfo output/*.pdf | grep "Pages:" | awk '{print $2}')
+# Step 1: Get candidate's years of experience from pipeline_state.json
+years_exp=$(grep -o '"years_of_experience": [0-9]*' pipeline_state.json | awk '{print $2}')
 
-if [ "$page_count" != "1" ]; then
-  echo "CRITICAL FAILURE: PDF is $page_count pages (must be 1)"
-  exit 1
+# Step 2: Determine target page count
+if [ "$years_exp" -lt 3 ]; then
+  target_pages=1
+  max_pages=1
+elif [ "$years_exp" -lt 5 ]; then
+  target_pages=1
+  max_pages=2  # Allow 2 if high-density
+elif [ "$years_exp" -ge 5 ]; then
+  target_pages=2
+  max_pages=2
 fi
 
-echo "✅ Page count verified: 1 page"
+# Step 3: Verify actual page count
+page_count=$(pdfinfo output/*.pdf | grep "Pages:" | awk '{print $2}')
+
+echo "Experience: $years_exp years"
+echo "Target pages: $target_pages"
+echo "Actual pages: $page_count"
+
+# Step 4: Decision logic
+if [ "$page_count" -gt "$max_pages" ]; then
+  echo "CRITICAL FAILURE: PDF is $page_count pages (max: $max_pages for $years_exp years experience)"
+  exit 1
+elif [ "$years_exp" -ge 5 ] && [ "$page_count" -eq 2 ]; then
+  echo "✅ Page count verified: 2 pages (acceptable for $years_exp years experience)"
+elif [ "$page_count" -eq 1 ]; then
+  echo "✅ Page count verified: 1 page"
+else
+  echo "✅ Page count: $page_count pages (within acceptable range)"
+fi
 ```
 
 **Option 1: Using pdfinfo (preferred):**
@@ -171,9 +195,15 @@ diff /tmp/pdf_text.txt /tmp/docx_text.txt
 |-------|--------|--------|
 | Files exist | FAIL | Regenerate (return to Stage 9) |
 | File size OK | FAIL | Investigate, possibly regenerate |
-| Page count = 1 | FAIL | Reduce font/content, regenerate |
+| Page count within limit | FAIL | Reduce font/content, regenerate |
 | Text extractable | FAIL | Regenerate with simpler formatting |
 | Format consistency | WARN | Proceed (minor issue) |
+
+**Page Count Decision Matrix:**
+- 0-3 years experience: Must be 1 page (strict)
+- 3-5 years experience: 1-2 pages acceptable
+- 5+ years experience: 1-2 pages (2 preferred for comprehensive coverage)
+- Any experience: >2 pages = FAIL (must condense)
 
 **Overall Decision:**
 - All PASS or WARN → Proceed to Stage 11
@@ -346,12 +376,17 @@ pip install PyPDF2
 
 ## Important Notes
 
-**1-Page Constraint Philosophy:**
-- For < 10 years experience: STRICT (must be 1 page)
-- For 10-15 years: PREFERRED (1 page ideal, 2 acceptable)
-- For 15+ years: FLEXIBLE (2 pages acceptable)
+**Page Constraint Philosophy (Updated):**
+- For 0-3 years experience: STRICT (must be 1 page)
+- For 3-5 years experience: FLEXIBLE (1 page preferred, 2 acceptable if high-density)
+- For 5-10 years experience: COMPREHENSIVE (2 pages preferred for full coverage)
+- For 10+ years experience: COMPREHENSIVE (2 pages required)
 
-**However:** Many ATS systems favor 1-page resumes, so always try to fit.
+**Rationale:**
+- Experienced professionals (5+ years) have more achievements worth showcasing
+- 2-page resumes are standard and accepted for senior roles
+- Forcing 1 page for experienced candidates loses important details
+- ATS systems handle 2 pages well for senior positions
 
 ## Next Stage
 

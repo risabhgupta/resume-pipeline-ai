@@ -1,185 +1,435 @@
 {
-  "current_stage": 11,
-  "stage_name": "finalize",
-  "iteration_counts": {
-    "generate-content": 0,
-    "ats-gatekeeper": 1,
-    "analyze-alignment": 1
+  "mode": "standalone",
+  "mode_detected_at": "2026-11-23T00:29:00+07:00",
+  "has_job_description": false,
+  "has_background": true,
+  "total_stages": 9,
+  "current_stage": 9,
+  "status": "COMPLETE",
+  "execution_plan": {
+    "stages": [
+      "intake-standalone",
+      "validate-context-standalone",
+      "analyze-strengths",
+      "generate-content-standalone",
+      "validate-content",
+      "enhance-impact",
+      "format-output",
+      "validate-format",
+      "finalize-standalone"
+    ],
+    "optimization_target": "maximum_impact"
   },
-  "max_iterations": 3,
-  "quality_scores": {
-    "content_quality": 95,
-    "ats_score": 94
+  "candidate": {
+    "name": "Risabh Gupta",
+    "email": "sunnyrkg1@gmail.com",
+    "phone": "+66 62 817 1056 / +91 95563 99794",
+    "location": "Bangkok, Thailand (open to Bengaluru / Singapore / London / Germany)",
+    "linkedin": "linkedin.com/in/risabhgupta",
+    "github": "github.com/risabhgupta",
+    "medium": "medium.com/@risabhgupta",
+    "headline": "Senior Backend Engineer | Java, Distributed Systems, Microservices | FinTech & GenAI | 8 YOE"
   },
-  "feedback_log": [
+  "seniority_level": "senior",
+  "years_of_experience": 8,
+  "primary_archetype": "architect",
+  "secondary_archetypes": [
+    "tech_lead",
+    "ai_platform"
+  ],
+  "core_strengths": [
+    "high_scale_distributed_systems",
+    "fintech_credit_risk_payments",
+    "genai_llm_orchestration",
+    "platform_modernization",
+    "technical_leadership"
+  ],
+  "work_experience": [
     {
-      "from_stage": "validate-alignment",
-      "to_stage": "analyze-alignment",
-      "timestamp": "2026-11-01T02:35:00Z",
-      "feedback_type": "CORRECTION",
-      "issues": [
-        "Hive marked as gap but exists in background (Apache Hive mentioned in line 174)",
-        "Flink marked as gap but exists in background (Apache Flink mentioned in lines 101, 174)",
-        "Petabyte-scale strategy overstates daily processing (TB/day \u2260 petabyte daily throughput)"
+      "company": "Agoda",
+      "title": "Senior Software Engineer, Tax Platform",
+      "location": "Bangkok, Thailand",
+      "duration": "Aug 2025 \u2013 Present",
+      "technologies": [
+        "Scala",
+        "Kotlin",
+        "Python",
+        "Java",
+        "Spark",
+        "Kafka",
+        "Redis",
+        "Hadoop",
+        "Couchbase",
+        "Kubernetes",
+        "GraphQL",
+        "gRPC",
+        "LangChain",
+        "LangGraph",
+        "FastAPI"
       ],
-      "corrections_applied": [
-        "Moved Hive and Flink from gaps to matched keywords",
-        "Adjusted initial match rate from 64.5% to 68.5%",
-        "Reframed petabyte-scale as 'multi-petabyte platform' (cumulative)",
-        "Reduced optimized match rate from 81.5% to 78% (realistic)",
-        "Updated gap breakdown: high-priority from 9 to 6"
+      "achievements": [
+        {
+          "text": "Scaled centralized tax stack to ~2B search requests/day",
+          "impact_score": 28,
+          "fact_ids": [
+            "F001"
+          ]
+        },
+        {
+          "text": "Modernized tax platform into centralized microservices",
+          "impact_score": 24,
+          "fact_ids": [
+            "F002"
+          ]
+        },
+        {
+          "text": "Tax localization for Mexico and Vietnam",
+          "impact_score": 23,
+          "fact_ids": [
+            "F003"
+          ]
+        },
+        {
+          "text": "API replay framework 1M+ scenarios/run, org-wide adoption",
+          "impact_score": 27,
+          "fact_ids": [
+            "F004"
+          ]
+        },
+        {
+          "text": "LangChain/LangGraph FinTech AI MCP for real-time queries",
+          "impact_score": 25,
+          "fact_ids": [
+            "F005"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "PayPal Inc.",
+      "title": "Software Development Engineer 2, Credit Risk",
+      "location": "Bengaluru, India",
+      "duration": "Apr 2021 \u2013 Apr 2025",
+      "note": "Official end date Apr 2025 (CV Aug 2025 omitted per profile guidance)",
+      "technologies": [
+        "Java",
+        "Python",
+        "SQL",
+        "Hibernate",
+        "Spring",
+        "MQ",
+        "Redis",
+        "IBM ODM",
+        "BigQuery",
+        "Spark"
+      ],
+      "achievements": [
+        {
+          "text": "Vendor integration TTM 2 months \u2192 1 week, 10x cost reduction",
+          "impact_score": 27,
+          "fact_ids": [
+            "F010"
+          ]
+        },
+        {
+          "text": "Bureau parsing; 80% faster parameter integration",
+          "impact_score": 24,
+          "fact_ids": [
+            "F011"
+          ]
+        },
+        {
+          "text": "20% fraud/credit risk reduction on US revolving credit",
+          "impact_score": 26,
+          "fact_ids": [
+            "F012"
+          ]
+        },
+        {
+          "text": "Direct bureau integration saving $1,250/day",
+          "impact_score": 25,
+          "fact_ids": [
+            "F013"
+          ]
+        },
+        {
+          "text": "PPC UK modernization ~$250k annual savings",
+          "impact_score": 26,
+          "fact_ids": [
+            "F014"
+          ]
+        },
+        {
+          "text": "PayPal Credit Card launch $250M acquisitions",
+          "impact_score": 25,
+          "fact_ids": [
+            "F015"
+          ]
+        },
+        {
+          "text": "Vendor evaluation 6 months \u2192 1.5 months",
+          "impact_score": 22,
+          "fact_ids": [
+            "F016"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Zycus",
+      "title": "Associate Tech Lead & Software Engineer",
+      "location": "Mumbai, India",
+      "duration": "Jun 2018 \u2013 Apr 2021",
+      "technologies": [
+        "Java",
+        "SQL",
+        "Hibernate",
+        "Spring",
+        "MQ",
+        "Redis",
+        "Solr",
+        "MongoDB",
+        "Consul",
+        "Jenkins",
+        "GOCD",
+        "Zookeeper"
+      ],
+      "achievements": [
+        {
+          "text": "IMT data consistency issues \u221290%",
+          "impact_score": 22,
+          "fact_ids": [
+            "F020"
+          ]
+        },
+        {
+          "text": "eProc/eCatalog consolidation \u221250% resource cost",
+          "impact_score": 21,
+          "fact_ids": [
+            "F021"
+          ]
+        },
+        {
+          "text": "P2P throughput +40%, opex \u221225% over 3 years",
+          "impact_score": 23,
+          "fact_ids": [
+            "F022"
+          ]
+        },
+        {
+          "text": "Managed 2 developers across 4 products",
+          "impact_score": 20,
+          "fact_ids": [
+            "F023"
+          ]
+        },
+        {
+          "text": "ZYCAT'19 Performer of the Year",
+          "impact_score": 18,
+          "fact_ids": [
+            "F024"
+          ]
+        }
       ]
     }
   ],
-  "start_time": "2026-11-01T02:33:00",
-  "data": {
-    "candidate_name": "Aman Gupta",
-    "target_company": "Uber",
-    "target_role": "Sr Staff Engineer - Data Engineer",
-    "industry_type": "FAANG",
-    "job_location": "Bengaluru, India",
-    "experience_years": "10-15+",
-    "key_focuses": [
-      "Data Lake/Lakehouse Architecture",
-      "Data Modeling & Schema Design",
-      "Distributed Data Processing (Spark, Hive, Presto, Kafka/Flink)",
-      "Data Governance & Quality",
-      "Technical Leadership & Strategy",
-      "Petabyte-scale Pipeline Engineering"
-    ],
-    "alignment": {
-      "initial_match_rate": 68.5,
-      "optimized_match_rate": 78.0,
-      "improvement_potential": 9.5,
-      "high_priority_gaps": 6,
-      "addressable_gaps": 6,
-      "strategies_count": 6
+  "facts": [
+    {
+      "fact_id": "F001",
+      "text": "Centralized tax management stack ~2 billion search requests/day at Agoda"
     },
-    "alignment_validation": {
-      "decision": "APPROVED_WITH_CORRECTIONS",
-      "challenges_raised": 3,
-      "corrections_applied": 5,
-      "strategies_approved": 6,
-      "strategies_rejected": 0,
-      "confidence_score": 90
+    {
+      "fact_id": "F002",
+      "text": "Modernized legacy tax systems into generalized centralized microservices"
     },
-    "content_generated": {
-      "resume_word_count": 940,
-      "resume_bullets": 23,
-      "cover_letter_word_count": 321,
-      "acronyms_expanded": 18,
-      "keywords_injected": 7,
-      "high_priority_keywords_present": [
-        "Presto",
-        "medallion architecture",
-        "Polaris",
-        "schema registry",
-        "cost optimization",
-        "multi-year strategy",
-        "multi-petabyte"
-      ]
+    {
+      "fact_id": "F003",
+      "text": "Deployed automated tax calculation for Mexico and Vietnam"
     },
-    "content_validation": {
-      "overall_score": 95,
-      "grade": "A",
-      "decision": "PASS",
-      "breakdown": {
-        "xyz_compliance": 24,
-        "quantification": 24,
-        "keyword_density": 22,
-        "professional_tone": 25
-      },
-      "bullets_analyzed": 23,
-      "bullets_passed": 23,
-      "bullets_with_metrics": 22,
-      "keywords_found": 13,
-      "keywords_missing": [
-        "data modeling",
-        "schema design"
-      ],
-      "weak_verbs_found": 0,
-      "issues": [
-        "1 bullet missing explicit quantification",
-        "Missing critical keywords: 'data modeling' (8x in JD), 'schema design' (5x in JD)"
-      ],
-      "notes": "High quality content. Minor keyword gaps do not affect overall pass decision."
+    {
+      "fact_id": "F004",
+      "text": "Distributed API replay framework for A/A & A/B; 1M+ scenarios/run; adopted across Agoda"
     },
-    "ats_analysis": {
-      "score": 86,
-      "grade": "B+",
-      "status": "PASS",
-      "keyword_match_rate": 78.0,
-      "quick_fixes_available": true,
-      "potential_score_with_fixes": 94,
-      "estimated_improvement": 8
+    {
+      "fact_id": "F005",
+      "text": "GenAI FinTech app with LangChain, LangGraph, FastAPI, Poetry"
     },
-    "ats_gatekeeper": {
-      "decision": "PASS",
-      "initial_score": 86,
-      "final_score": 94,
-      "threshold": 75,
-      "fixes_applied": [
-        "Changed 'TECHNICAL SKILLS' \u2192 'SKILLS' (+2 pts)",
-        "Changed 'PROFESSIONAL SUMMARY' \u2192 'SUMMARY' (+2 pts)",
-        "Added 'data modeling, schema design' to summary (+3 pts)",
-        "Changed 'ADDITIONAL INFORMATION' \u2192 'SABBATICAL' (+1 pt)"
-      ],
-      "improvement": 8,
-      "keyword_match_rate_improvement": "78% \u2192 81%"
+    {
+      "fact_id": "F010",
+      "text": "Fraud/identity/risk vendor framework: TTM 2 months \u2192 1 week; 10x cost reduction"
     },
-    "format_output": {
-      "pdf_generated": true,
-      "docx_generated": true,
-      "html_generated": true,
-      "pdf_size_kb": 292,
-      "files_created": [
-        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.pdf",
-        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.docx",
-        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.html"
-      ]
+    {
+      "fact_id": "F011",
+      "text": "Multi-vendor credit bureau parsing; 80% faster parameter integration"
     },
-    "format_validation": {
-      "decision": "PASS_WITH_NOTE",
-      "checks": {
-        "file_existence": {
-          "status": "PASS",
-          "details": "All 3 files generated (PDF, DOCX, HTML)"
-        },
-        "file_size": {
-          "status": "PASS",
-          "resume_pdf_kb": 292,
-          "resume_docx_kb": 13,
-          "details": "Within acceptable range (3KB - 2MB)"
-        },
-        "page_count": {
-          "status": "ACCEPTABLE",
-          "pages": 2,
-          "details": "2 pages is acceptable for 10+ years experience and Sr Staff level role",
-          "note": "Many hiring managers expect 2 pages for senior/staff positions"
-        },
-        "content_completeness": {
-          "status": "PASS",
-          "source_bullets": 23,
-          "verification": "All content present in PDF"
-        }
-      },
-      "notes": [
-        "For 10+ years experience: 1 page preferred, 2 pages acceptable",
-        "Sr Staff Engineer level typically uses 2-page resumes",
-        "Content is comprehensive and well-structured"
-      ]
+    {
+      "fact_id": "F012",
+      "text": "20% reduction in fraud and credit risk for US Credit Card and PPC"
     },
-    "finalization": {
-      "execution_report_generated": true,
-      "final_status": "SUCCESS",
-      "deliverables": [
-        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.pdf",
-        "Aman_Gupta_Uber_SrStaffDataEngineer_2026.docx",
-        "cover_letter.txt",
-        "EXECUTION_REPORT.md"
-      ]
+    {
+      "fact_id": "F013",
+      "text": "Direct bureau vendors saving $1,250/day for 25,000 revolving credit applications"
+    },
+    {
+      "fact_id": "F014",
+      "text": "PPC UK modernization eliminated 2 services; ~$250k annual savings"
+    },
+    {
+      "fact_id": "F015",
+      "text": "PayPal Credit Card (3/2 MasterCard) 2022 launch; $250M acquisitions to date"
+    },
+    {
+      "fact_id": "F016",
+      "text": "Vendor evaluation framework: 6 months \u2192 1.5 months"
+    },
+    {
+      "fact_id": "F017",
+      "text": "Auto-rebound for failed credit apps; of 5% errored apps, 25% later approved"
+    },
+    {
+      "fact_id": "F018",
+      "text": "Checkout-page credit applications; +20% Credit Card acquisition vs direct"
+    },
+    {
+      "fact_id": "F019",
+      "text": "SignalFX/Splunk monitoring; \u22126 hours average issue detection/resolution"
+    },
+    {
+      "fact_id": "F020",
+      "text": "IMT improvements; 90% fewer data consistency issues"
+    },
+    {
+      "fact_id": "F021",
+      "text": "Consolidated eProc and eCatalog; 50% resource cost reduction"
+    },
+    {
+      "fact_id": "F022",
+      "text": "P2P domain +40% transaction speed; \u221225% opex over 3 years"
+    },
+    {
+      "fact_id": "F023",
+      "text": "Led 2 developers; 4 main products + 5 subcomponents"
+    },
+    {
+      "fact_id": "F024",
+      "text": "ZYCAT'19 Performer of the Year / Rising Star at Zycus"
+    },
+    {
+      "fact_id": "F025",
+      "text": "B.Tech CS, IIIT Bhubaneswar, 2014\u20132018, CGPA 7.0"
+    },
+    {
+      "fact_id": "F026",
+      "text": "Spot Recognition Award PayPal May 2024; Collaboration Award June 2023"
     }
+  ],
+  "omissions": [
+    "PayPay Tokyo role omitted (unverified conflict in profile notes)",
+    "Compensation, DOB, and sensitive personal data excluded from resume",
+    "Loop Coding / Vibe Coding excluded as weak recruiter-search terms",
+    "Internship (UMCA) omitted to keep 1-page focus"
+  ],
+  "technical_skills": {
+    "expert": [
+      "Java",
+      "Spring/Spring Boot",
+      "Microservices",
+      "Distributed Systems",
+      "SQL",
+      "Redis"
+    ],
+    "advanced": [
+      "Python",
+      "Hibernate/JPA",
+      "Kafka",
+      "Apache Spark",
+      "Kubernetes",
+      "Docker",
+      "CI/CD"
+    ],
+    "intermediate": [
+      "Scala",
+      "Kotlin",
+      "LangChain/LangGraph",
+      "GraphQL",
+      "gRPC",
+      "FastAPI",
+      "MongoDB",
+      "AWS/GCP"
+    ]
   },
-  "status": "COMPLETE",
-  "end_time": "2026-11-01T02:50:00"
+  "education": [
+    {
+      "degree": "Bachelor of Technology in Computer Science",
+      "institution": "IIIT Bhubaneswar, Odisha, India",
+      "year": "2014 \u2013 2018",
+      "gpa": "7.0 CGPA"
+    }
+  ],
+  "competitive_advantages": [
+    {
+      "title": "Billion-scale backend ownership",
+      "detail": "Owns Agoda tax platform serving ~2B search requests/day with high availability"
+    },
+    {
+      "title": "FinTech credit-risk depth",
+      "detail": "4 years at PayPal Credit Risk: vendor frameworks, decisioning models, $250M card launch impact"
+    },
+    {
+      "title": "GenAI + platform engineering",
+      "detail": "Shipped LangChain/LangGraph FinTech MCP alongside production tax and replay systems"
+    },
+    {
+      "title": "Org-wide tooling leverage",
+      "detail": "API replay framework adopted across all Agoda engineering teams (1M+ scenarios/run)"
+    },
+    {
+      "title": "Measurable cost & risk outcomes",
+      "detail": "$250k/yr PPC UK savings, $1,250/day bureau savings, 20% fraud/risk reduction, 10x integration cost cut"
+    }
+  ],
+  "strength_analysis": {
+    "avg_top_impact_score": 25.4,
+    "hot_technologies": [
+      "Kubernetes",
+      "LangChain",
+      "LangGraph",
+      "Kafka",
+      "Spark",
+      "gRPC",
+      "FastAPI"
+    ],
+    "market_positioning": "Senior/Staff backend engineer for FinTech, payments, and GenAI-enabled platforms"
+  },
+  "validation": {
+    "context_completeness": 95,
+    "decision": "PASS",
+    "warnings": [
+      "PayPal end date normalized to Apr 2025 per official employment table",
+      "CGPA 7.0 included (borderline; kept for completeness)"
+    ]
+  },
+  "iteration_counts": {
+    "generate-content-standalone": 0,
+    "validate-content": 0
+  },
+  "quality_scores": {
+    "content_quality": 92,
+    "impact_score_avg": 25.4,
+    "metrics_coverage_pct": 80,
+    "format_pages": 1
+  },
+  "sources": [
+    "/Users/risabh/Desktop/Risabh_Gupta_Full_Profile_Data.txt",
+    "/Users/risabh/RisabhResume.docx"
+  ],
+  "stage_name": "finalize-standalone",
+  "outputs": [
+    "output/Risabh_Gupta_Resume_2026.pdf",
+    "output/Risabh_Gupta_Resume_2026.docx",
+    "output/Risabh_Gupta_Resume_2026.html",
+    "output/Risabh_Gupta_Resume_2026.txt",
+    "output/strength_analysis.json",
+    "output/EXECUTION_REPORT.md"
+  ]
 }

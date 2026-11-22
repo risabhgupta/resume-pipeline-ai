@@ -129,7 +129,7 @@ Use the **X-Y-Z formula** but optimize for **maximum impact**:
 For each role, select achievements using this priority:
 
 ```python
-def select_achievements(role, achievements):
+def select_achievements(role, achievements, total_years_experience):
     scored_achievements = []
 
     for achievement in achievements:
@@ -158,13 +158,23 @@ def select_achievements(role, achievements):
     # Sort by adjusted score
     scored_achievements.sort(key=lambda x: x[1], reverse=True)
 
-    # Select top 3-5 based on role importance
-    if role.is_current:
-        return scored_achievements[:5]
-    elif role.within_last_3_years:
-        return scored_achievements[:4]
+    # Select achievements based on experience level and page target
+    if total_years_experience >= 5:
+        # 2-page resume: include more details
+        if role.is_current:
+            return scored_achievements[:8]  # Up to 8 bullets for current role
+        elif role.within_last_3_years:
+            return scored_achievements[:6]  # Up to 6 bullets for recent roles
+        else:
+            return scored_achievements[:4]  # Up to 4 bullets for older roles
     else:
-        return scored_achievements[:3]
+        # 1-page resume: be selective
+        if role.is_current:
+            return scored_achievements[:5]
+        elif role.within_last_3_years:
+            return scored_achievements[:4]
+        else:
+            return scored_achievements[:3]
 ```
 
 ### 5. Education & Certifications
@@ -220,10 +230,11 @@ Since we're not targeting a specific job, we can be slightly more comprehensive:
 6. Certifications (if impressive)
 7. Open Source / Projects (if space)
 
-**Length Target:**
-- 0-5 years experience: 1 page (strict)
-- 5-10 years experience: 1-2 pages (prefer 1)
-- 10+ years experience: 2 pages (acceptable)
+**Length Target (Experience-Based):**
+- 0-3 years experience: 1 page (strict)
+- 3-5 years experience: 1 page (can extend to 2 if high-impact)
+- 5-10 years experience: 2 pages (preferred for comprehensive coverage)
+- 10+ years experience: 2 pages (required)
 
 ## Output Format
 

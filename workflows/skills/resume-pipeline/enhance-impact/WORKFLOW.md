@@ -260,6 +260,21 @@ Enhanced resume with:
 }
 ```
 
+## Page Length Considerations
+
+**For 5+ years experience (2-page target):**
+- Include more achievements per role (up to 8 for current role)
+- Add detailed sub-bullets where complexity warrants it
+- Include more certifications and awards
+- Add additional sections (Publications, Speaking, Open Source)
+- More comprehensive skill categorization
+
+**For <5 years experience (1-page target):**
+- Focus on highest-impact achievements only
+- Condense multiple related achievements into single bullets
+- Prioritize recent experience heavily
+- Minimal additional sections
+
 ## Success Criteria
 
 - ✅ Every bullet has explicit scale metrics
@@ -269,6 +284,7 @@ Enhanced resume with:
 - ✅ Professional summary has 2+ differentiators
 - ✅ No weak verbs or vague language
 - ✅ All enhancements are truthful (backed by source facts)
+- ✅ Page count appropriate for experience level (2 pages for 5+ years)
 
 ## Next Stage
 

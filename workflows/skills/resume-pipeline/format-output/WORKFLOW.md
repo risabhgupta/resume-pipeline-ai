@@ -19,10 +19,15 @@ The HTML template (`templates/resume_template.html`) provides:
 
 ## AI-Driven Process
 
-### Step 1: Analyze Content
+### Step 1: Analyze Content & Experience Level
 - Read the generated resume text file
-- Check if condensed version needed (word count > 650)
-- Determine if content fits in 1 page
+- Check candidate's years of experience from pipeline_state.json
+- Determine target page count:
+  - 0-3 years: 1 page (strict)
+  - 3-5 years: 1 page preferred (allow 2 if high-density)
+  - 5-10 years: 2 pages (preferred for comprehensive coverage)
+  - 10+ years: 2 pages (required)
+- Check if content fits target page count
 
 ### Step 2: Generate PDF Using HTML Template
 
@@ -56,7 +61,10 @@ pandoc output/resume_1page.txt -o output/[Candidate]_[Company]_[Role].docx
 ### Step 4: Validate PDF
 ```bash
 pdfinfo output/[filename].pdf | grep Pages
-# Must output: Pages: 1
+# Target pages based on experience:
+# 0-3 years: Must be 1 page
+# 3-5 years: 1-2 pages acceptable
+# 5+ years: 1-2 pages (prefer 2 for comprehensiveness)
 ```
 
 ### Step 5: Verify File Size
@@ -84,11 +92,19 @@ Examples:
 
 ## Troubleshooting
 
-**If PDF is 2 pages:**
+**If PDF exceeds target page count:**
+
+For candidates with **<5 years experience** (target: 1 page):
 1. Use the condensed resume version (`resume_1page.txt`)
 2. Reduce font size in template (9pt → 8.5pt)
 3. Tighten margins (10mm → 8mm)
 4. Remove least impactful bullets from older roles
+
+For candidates with **5+ years experience** (target: 2 pages):
+1. 2 pages is acceptable and preferred for comprehensive coverage
+2. Only condense if content exceeds 2.5 pages
+3. If exactly 2.1-2.3 pages, slight font reduction (9pt → 8.8pt) is acceptable
+4. Never sacrifice important achievements just to fit 1 page
 
 **If Playwright not installed:**
 ```bash
