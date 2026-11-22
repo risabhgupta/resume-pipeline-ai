@@ -24,13 +24,13 @@ Output: Aman_Gupta_Agoda_StaffSWE.pdf
 
 Use Bash tool:
 ```bash
-mv output/resume.pdf "output/${CANDIDATE}_${COMPANY}_${ROLE}.pdf"
-mv output/resume.docx "output/${CANDIDATE}_${COMPANY}_${ROLE}.docx"
+mv $PIPELINE_EXECUTION_DIR/resume.pdf "$PIPELINE_EXECUTION_DIR/${CANDIDATE}_${COMPANY}_${ROLE}.pdf"
+mv $PIPELINE_EXECUTION_DIR/resume.docx "$PIPELINE_EXECUTION_DIR/${CANDIDATE}_${COMPANY}_${ROLE}.docx"
 ```
 
 ### 2. Generate Execution Report
 
-Create `output/EXECUTION_REPORT.md` with:
+Create `$PIPELINE_EXECUTION_DIR/EXECUTION_REPORT.md` with:
 
 ```markdown
 # Pipeline Execution Report

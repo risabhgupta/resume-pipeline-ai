@@ -56,7 +56,7 @@ Read these files:
 
 ## Output Format
 
-Generate a structured JSON object and save it to `pipeline_state.json`:
+Generate a structured JSON object and save it to `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 ```json
 {

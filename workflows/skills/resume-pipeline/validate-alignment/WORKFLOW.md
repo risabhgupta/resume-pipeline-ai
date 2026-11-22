@@ -123,7 +123,7 @@ Look for:
 
 ## Output Format
 
-Update `pipeline_state.json`:
+Update `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 ```json
 {

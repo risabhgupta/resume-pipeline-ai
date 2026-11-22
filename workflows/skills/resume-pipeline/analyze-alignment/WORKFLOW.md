@@ -12,7 +12,7 @@ Perform deep keyword analysis to identify gaps between the candidate's backgroun
 
 ## Inputs
 
-- `pipeline_state.json` - Contains candidate data and job info
+- `$PIPELINE_EXECUTION_DIR/pipeline_state.json` - Contains candidate data and job info
 - `input/job_description.txt` - For detailed keyword extraction
 - `input/raw_background.txt` - For skills inventory
 
@@ -86,7 +86,7 @@ Optimized Match Rate = Initial + (Addressable Gaps Closed / Total Gaps) × Remai
 
 ## Output Format
 
-Save to `output/alignment_matrix.json`:
+Save to `$PIPELINE_EXECUTION_DIR/alignment_matrix.json`:
 
 ```json
 {
@@ -143,7 +143,7 @@ Save to `output/alignment_matrix.json`:
 }
 ```
 
-Update `pipeline_state.json`:
+Update `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 ```json
 {

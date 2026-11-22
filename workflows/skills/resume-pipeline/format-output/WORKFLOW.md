@@ -21,7 +21,7 @@ The HTML template (`templates/resume_template.html`) provides:
 
 ### Step 1: Analyze Content & Experience Level
 - Read the generated resume text file
-- Check candidate's years of experience from pipeline_state.json
+- Check candidate's years of experience from $PIPELINE_EXECUTION_DIR/pipeline_state.json
 - Determine target page count:
   - 0-3 years: 1 page (strict)
   - 3-5 years: 1 page preferred (allow 2 if high-density)
@@ -34,9 +34,9 @@ The HTML template (`templates/resume_template.html`) provides:
 **Primary Method (Recommended):**
 ```bash
 python3 workflows/skills/resume-pipeline/format-output/html_to_pdf.py \
-  output/resume_1page.txt \
+  $PIPELINE_EXECUTION_DIR/resume_1page.txt \
   workflows/skills/resume-pipeline/format-output/templates/resume_template.html \
-  output/[Candidate]_[Company]_[Role].pdf
+  $PIPELINE_EXECUTION_DIR/[Candidate]_[Company]_[Role].pdf
 ```
 
 This will:
@@ -47,7 +47,7 @@ This will:
 
 **Fallback Method (If Playwright unavailable):**
 ```bash
-pandoc output/resume_1page.txt -o output/resume.pdf \
+pandoc $PIPELINE_EXECUTION_DIR/resume_1page.txt -o $PIPELINE_EXECUTION_DIR/resume.pdf \
   --pdf-engine=pdflatex \
   -V geometry:margin=0.5in \
   -V fontsize=10pt
@@ -55,12 +55,12 @@ pandoc output/resume_1page.txt -o output/resume.pdf \
 
 ### Step 3: Generate DOCX (Optional)
 ```bash
-pandoc output/resume_1page.txt -o output/[Candidate]_[Company]_[Role].docx
+pandoc $PIPELINE_EXECUTION_DIR/resume_1page.txt -o $PIPELINE_EXECUTION_DIR/[Candidate]_[Company]_[Role].docx
 ```
 
 ### Step 4: Validate PDF
 ```bash
-pdfinfo output/[filename].pdf | grep Pages
+pdfinfo $PIPELINE_EXECUTION_DIR/[filename].pdf | grep Pages
 # Target pages based on experience:
 # 0-3 years: Must be 1 page
 # 3-5 years: 1-2 pages acceptable
@@ -69,7 +69,7 @@ pdfinfo output/[filename].pdf | grep Pages
 
 ### Step 5: Verify File Size
 ```bash
-ls -lh output/[filename].pdf
+ls -lh $PIPELINE_EXECUTION_DIR/[filename].pdf
 # Should be < 2MB (typically 40-300KB)
 ```
 

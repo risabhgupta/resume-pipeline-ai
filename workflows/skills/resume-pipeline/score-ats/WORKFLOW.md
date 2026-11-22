@@ -201,7 +201,7 @@ pages = estimate_pages(word_count)  # ~500 words/page
 
 ## Output Format
 
-Save to `output/ats_score.json`:
+Save to `$PIPELINE_EXECUTION_DIR/ats_score.json`:
 
 ```json
 {
@@ -255,7 +255,7 @@ Save to `output/ats_score.json`:
 }
 ```
 
-Update `pipeline_state.json`:
+Update `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 ```json
 {

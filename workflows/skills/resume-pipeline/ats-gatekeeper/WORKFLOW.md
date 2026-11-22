@@ -148,7 +148,7 @@ Send modified resume back to Stage 7 for rescoring.
 
 ## Output Format
 
-Update `pipeline_state.json`:
+Update `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 **If PASS:**
 ```json

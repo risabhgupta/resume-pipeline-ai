@@ -106,7 +106,7 @@ Classify candidate into primary archetype:
 
 ## Output Format
 
-Save to `pipeline_state.json`:
+Save to `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 ```json
 {

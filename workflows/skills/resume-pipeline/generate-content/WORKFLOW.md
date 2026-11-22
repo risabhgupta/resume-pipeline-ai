@@ -172,7 +172,7 @@ Dear Hiring Manager,
 I am excited to apply for the [Role] position at [Company]...
 ```
 
-Update `pipeline_state.json`:
+Update `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 ```json
 {

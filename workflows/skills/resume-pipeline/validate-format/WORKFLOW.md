@@ -12,11 +12,11 @@ Verify that generated PDF/DOCX files meet quality standards, especially the crit
 
 ## Inputs
 
-- `output/resume.pdf` - PDF to validate
-- `output/resume.docx` - DOCX to validate (optional)
-- `output/cover_letter.pdf` - Cover letter PDF
-- `output/cover_letter.docx` - Cover letter DOCX (optional)
-- `pipeline_state.json` - Context
+- `$PIPELINE_EXECUTION_DIR/resume.pdf` - PDF to validate
+- `$PIPELINE_EXECUTION_DIR/resume.docx` - DOCX to validate (optional)
+- `$PIPELINE_EXECUTION_DIR/cover_letter.pdf` - Cover letter PDF
+- `$PIPELINE_EXECUTION_DIR/cover_letter.docx` - Cover letter DOCX (optional)
+- `$PIPELINE_EXECUTION_DIR/pipeline_state.json` - Context
 
 ## Validation Checks
 
@@ -25,13 +25,13 @@ Verify that generated PDF/DOCX files meet quality standards, especially the crit
 Verify files were generated:
 ```python
 required_files = [
-    "output/resume.pdf",
-    "output/cover_letter.pdf"
+    "$PIPELINE_EXECUTION_DIR/resume.pdf",
+    "$PIPELINE_EXECUTION_DIR/cover_letter.pdf"
 ]
 
 optional_files = [
-    "output/resume.docx",
-    "output/cover_letter.docx"
+    "$PIPELINE_EXECUTION_DIR/resume.docx",
+    "$PIPELINE_EXECUTION_DIR/cover_letter.docx"
 ]
 
 for file in required_files:
@@ -53,7 +53,7 @@ Ensure files are reasonable size:
 **AI validates using Bash tool:**
 ```bash
 # Check file size
-ls -lh output/resume.pdf | awk '{print $5}'
+ls -lh $PIPELINE_EXECUTION_DIR/resume.pdf | awk '{print $5}'
 
 # Decision logic:
 # < 3 KB: TOO_SMALL - File may be empty or corrupted
@@ -69,7 +69,7 @@ ls -lh output/resume.pdf | awk '{print $5}'
 
 ```bash
 # Step 1: Get candidate's years of experience from pipeline_state.json
-years_exp=$(grep -o '"years_of_experience": [0-9]*' pipeline_state.json | awk '{print $2}')
+years_exp=$(grep -o '"years_of_experience": [0-9]*' $PIPELINE_EXECUTION_DIR/pipeline_state.json | awk '{print $2}')
 
 # Step 2: Determine target page count
 if [ "$years_exp" -lt 3 ]; then
@@ -84,7 +84,7 @@ elif [ "$years_exp" -ge 5 ]; then
 fi
 
 # Step 3: Verify actual page count
-page_count=$(pdfinfo output/*.pdf | grep "Pages:" | awk '{print $2}')
+page_count=$(pdfinfo $PIPELINE_EXECUTION_DIR/*.pdf | grep "Pages:" | awk '{print $2}')
 
 echo "Experience: $years_exp years"
 echo "Target pages: $target_pages"
@@ -105,14 +105,14 @@ fi
 
 **Option 1: Using pdfinfo (preferred):**
 ```bash
-pdfinfo output/resume.pdf | grep Pages
+pdfinfo $PIPELINE_EXECUTION_DIR/resume.pdf | grep Pages
 # Expected output: Pages: 1
 # If Pages != 1: FAIL immediately, regenerate
 ```
 
 **Option 2: Using PyPDF2 if available:**
 ```bash
-python3 -c "from PyPDF2 import PdfReader; print(len(PdfReader('output/resume.pdf').pages))"
+python3 -c "from PyPDF2 import PdfReader; print(len(PdfReader('$PIPELINE_EXECUTION_DIR/resume.pdf').pages))"
 # Expected output: 1
 # If != 1: FAIL immediately, regenerate
 ```
@@ -131,19 +131,19 @@ Do NOT trust previous stages - verify actual output.
 
 **Step 1: Extract PDF text**
 ```bash
-pdftotext output/resume.pdf - > /tmp/pdf_content.txt
+pdftotext $PIPELINE_EXECUTION_DIR/resume.pdf - > /tmp/pdf_content.txt
 ```
 
 **Step 2: Load source resume.txt**
 ```bash
-cat output/resume.txt > /tmp/source_content.txt
+cat $PIPELINE_EXECUTION_DIR/resume.txt > /tmp/source_content.txt
 ```
 
 **Step 3: Count bullets in source**
 ```bash
-grep -c "^•" output/resume.txt
+grep -c "^•" $PIPELINE_EXECUTION_DIR/resume.txt
 # OR
-grep -c "^-" output/resume.txt
+grep -c "^-" $PIPELINE_EXECUTION_DIR/resume.txt
 ```
 
 **Step 4: Count bullets in PDF**
@@ -175,10 +175,10 @@ Compare PDF and DOCX (if both exist):
 **Extract text from both:**
 ```bash
 # PDF text
-pdftotext output/resume.pdf - > /tmp/pdf_text.txt
+pdftotext $PIPELINE_EXECUTION_DIR/resume.pdf - > /tmp/pdf_text.txt
 
 # DOCX text (if available)
-pandoc output/resume.docx -t plain > /tmp/docx_text.txt
+pandoc $PIPELINE_EXECUTION_DIR/resume.docx -t plain > /tmp/docx_text.txt
 
 # Compare
 diff /tmp/pdf_text.txt /tmp/docx_text.txt
@@ -212,7 +212,7 @@ diff /tmp/pdf_text.txt /tmp/docx_text.txt
 
 ## Output Format
 
-Update `pipeline_state.json`:
+Update `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 ```json
 {

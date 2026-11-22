@@ -12,7 +12,7 @@ Verify that we have sufficient data to generate a high-quality, ATS-optimized re
 
 ## Inputs
 
-Read `pipeline_state.json` to access the data extracted by Stage 1 (Intake).
+Read `$PIPELINE_EXECUTION_DIR/pipeline_state.json` to access the data extracted by Stage 1 (Intake).
 
 ## Your Tasks - INDEPENDENT VERIFICATION REQUIRED
 
@@ -85,7 +85,7 @@ Read `pipeline_state.json` to access the data extracted by Stage 1 (Intake).
 
 ## Output Format
 
-Update `pipeline_state.json`:
+Update `$PIPELINE_EXECUTION_DIR/pipeline_state.json`:
 
 ```json
 {
