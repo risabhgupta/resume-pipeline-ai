@@ -12,24 +12,23 @@ You are the **Format Specialist** for the HireEngine v2.0 resume pipeline.
 
 **Available Templates:**
 
-1. **`templates/resume_template.html`** (Original - Compact Style)
-   - Strict 1-page A4 enforcement via print-media CSS
+1. **`templates/resume_template_risabh.html`** (DEFAULT - Risabh's Format)
+   - Centered header with name, title, YOE
+   - Contact info: Phone, Email, LinkedIn
+   - Tech highlights line below header
+   - Sections: Summary, Education, Experience, Skills, Technologies, Achievements
+   - 2-page support for experienced professionals
+   - Best for: All experience levels, tech roles
+
+2. **`templates/resume_template.html`** (Alternative - Compact Style)
+   - Strict 1-page A4 enforcement
    - Professional two-column skills grid
    - Bold metrics for scannability
-   - Clean semantic structure
-   - Best for: 1-page resumes, modern tech roles
-
-2. **`templates/resume_template_v2.html`** (Moheel Format - Professional Style)
-   - Follows traditional CV format with clear sections
-   - 2-page support for experienced professionals
-   - Section headers: PROFESSIONAL SUMMARY, AREAS OF EXPERTISE, etc.
-   - 4-column expertise grid
-   - Signature line at bottom
-   - Best for: 2-page resumes, senior/staff roles, traditional industries
+   - Best for: 1-page resumes if specifically needed
 
 **Template Selection:**
-- Use `resume_template_v2.html` for 5+ years experience (follows Moheel's format)
-- Use `resume_template.html` for 0-5 years experience (compact format)
+- **Default:** Use `resume_template_risabh.html` (Risabh's format)
+- Alternative: Use `resume_template.html` only if 1-page strict requirement
 
 ## AI-Driven Process
 
@@ -47,13 +46,8 @@ You are the **Format Specialist** for the HireEngine v2.0 resume pipeline.
 
 **Primary Method (Recommended):**
 ```bash
-# Select template based on experience level
-YEARS_EXP=$(jq -r '.years_of_experience' $PIPELINE_EXECUTION_DIR/pipeline_state.json)
-if [ "$YEARS_EXP" -ge 5 ]; then
-  TEMPLATE="workflows/skills/resume-pipeline/format-output/templates/resume_template_v2.html"
-else
-  TEMPLATE="workflows/skills/resume-pipeline/format-output/templates/resume_template.html"
-fi
+# Use Risabh's format template (default)
+TEMPLATE="workflows/skills/resume-pipeline/format-output/templates/resume_template_risabh.html"
 
 python3 workflows/skills/resume-pipeline/format-output/html_to_pdf.py \
   $PIPELINE_EXECUTION_DIR/resume_1page.txt \

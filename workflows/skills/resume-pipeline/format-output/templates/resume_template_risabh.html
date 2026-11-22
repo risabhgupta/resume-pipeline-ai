@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{FULL_NAME}} - Resume</title>
+  <style>
+    /* ==========================================
+       PRINT & PAGE SETUP (2-PAGE SUPPORT)
+       ========================================== */
+    @page {
+      size: A4 portrait;
+      margin: 15mm 20mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      font-family: "Calibri", "Arial", sans-serif;
+      font-size: 11pt;
+      line-height: 1.5;
+      color: #000000;
+      background-color: #ffffff;
+    }
+    .page-container {
+      width: 100%;
+      max-width: 210mm;
+      margin: 0 auto;
+    }
+
+    /* ==========================================
+       HEADER (Risabh's Style)
+       ========================================== */
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .header h1 {
+      font-size: 16pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+    .header .subtitle {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #000000;
+      margin-bottom: 6px;
+    }
+    .contact-info {
+      font-size: 10pt;
+      color: #000000;
+      line-height: 1.6;
+    }
+    .contact-info a {
+      color: #0563C1;
+      text-decoration: none;
+    }
+    .tech-highlights {
+      font-size: 10pt;
+      color: #000000;
+      line-height: 1.5;
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* ==========================================
+       SECTIONS
+       ========================================== */
+    .section {
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 6px;
+    }
+
+    /* ==========================================
+       SUMMARY
+       ========================================== */
+    .summary-text {
+      font-size: 10.5pt;
+      color: #000000;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    /* ==========================================
+       EDUCATION
+       ========================================== */
+    .edu-block {
+      margin-bottom: 8px;
+    }
+    .edu-degree {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .edu-major {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .edu-institution {
+      font-size: 10.5pt;
+      font-style: italic;
+      color: #000000;
+    }
+    .edu-details {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #000000;
+    }
+
+    /* ==========================================
+       EXPERIENCE (Risabh's Style)
+       ========================================== */
+    .job-block {
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+    .job-title {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .job-company-line {
+      font-size: 10.5pt;
+      font-style: italic;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+    .job-meta {
+      font-size: 10pt;
+      font-style: italic;
+      color: #000000;
+      margin-bottom: 4px;
+    }
+    .job-meta strong {
+      font-weight: 700;
+      font-style: normal;
+    }
+    .job-bullets {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-top: 4px;
+    }
+    .job-bullets li {
+      font-size: 10.5pt;
+      margin-bottom: 4px;
+      color: #000000;
+      line-height: 1.4;
+      text-align: justify;
+    }
+    .job-bullets li strong {
+      font-weight: 600;
+    }
+
+    /* ==========================================
+       SKILLS SECTION
+       ========================================== */
+    .skills-block {
+      margin-bottom: 8px;
+    }
+    .skill-category {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #000000;
+    }
+    .skill-items {
+      font-size: 10.5pt;
+      color: #000000;
+      line-height: 1.5;
+    }
+
+    /* ==========================================
+       ACHIEVEMENTS
+       ========================================== */
+    .achievement-list {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    .achievement-list li {
+      font-size: 10.5pt;
+      margin-bottom: 3px;
+      color: #000000;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-container">
+
+    <!-- HEADER (Risabh's Centered Style) -->
+    <header class="header">
+      <h1>{{FULL_NAME}}</h1>
+      <div class="subtitle">{{JOB_TITLE}}, {{YEARS_EXPERIENCE}} YOE</div>
+      <div class="contact-info">
+        Ph.: {{PHONE}}<br>
+        Email: <a href="mailto:{{EMAIL}}">{{EMAIL}}</a><br>
+        LinkedIn: <a href="{{LINKEDIN_URL}}">{{LINKEDIN}}</a>
+      </div>
+      <div class="tech-highlights">
+        {{TECH_HIGHLIGHTS}}
+      </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <section class="section">
+      <div class="section-title">Summary</div>
+      <div class="summary-text">
+        {{SUMMARY_TEXT}}
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section">
+      <div class="section-title">Education</div>
+      {{EDUCATION_BLOCKS}}
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section">
+      <div class="section-title">Experience</div>
+      {{EXPERIENCE_BLOCKS}}
+    </section>
+
+    <!-- SKILLS HIGHLIGHTS -->
+    <section class="section">
+      <div class="section-title">Skills Highlights</div>
+      {{SKILLS_BLOCKS}}
+    </section>
+
+    <!-- TECHNOLOGIES & COMPONENTS -->
+    <section class="section">
+      <div class="section-title">Technologies & Components</div>
+      {{TECHNOLOGIES_BLOCKS}}
+    </section>
+
+    <!-- ACHIEVEMENTS & CERTIFICATIONS -->
+    <section class="section">
+      <div class="section-title">Achievements & Certifications</div>
+      <ul class="achievement-list">
+        {{ACHIEVEMENTS_ITEMS}}
+      </ul>
+    </section>
+
+  </div>
+</body>
+</html>
